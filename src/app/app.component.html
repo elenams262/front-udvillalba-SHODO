@@ -1,0 +1,29 @@
+<div class="main-container">
+  <h1>⚽ Mi App de Fútbol ⚽</h1>
+
+  @if (partido) {
+  <div class="match-card">
+    <h2>Próximo Encuentro</h2>
+    <h3>{{ partido.jornada }}</h3>
+
+    <div class="match-details">
+      <p><strong>🆚 Rival:</strong> {{ partido.rival }}</p>
+      <p><strong>📍 Ubicación:</strong> {{ partido.ubicacion }}</p>
+      <p><strong>📅 Fecha:</strong> {{ partido.fecha }}</p>
+      <p><strong>⏰ Hora:</strong> {{ partido.hora }}</p>
+    </div>
+
+    @if (partido.partidoCasa) {
+    <div class="status-home">🏠 JUGAMOS EN CASA</div>
+    } @else {
+    <div class="status-away">✈️ JUGAMOS FUERA</div>
+    }
+  </div>
+  } @else {
+  <div class="loading-msg">
+    <p>⏳ Cargando próximo partido...</p>
+  </div>
+  }
+</div>
+
+<router-outlet></router-outlet>
