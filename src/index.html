@@ -23,6 +23,11 @@
       <input type="file" name="escudos" id="escudos" multiple="true" />
       <input type="submit" value="Enviar" />
     </form>
+    <h1>Para subir otros archivos</h1>
+    <form action="http://localhost:5000/otros/multi" enctype="multipart/form-data" method="post">
+      <input type="file" name="otros" id="otros" multiple="true" />
+      <input type="submit" value="Enviar" />
+    </form>
 
     <app-root></app-root>
   </body>
