@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Necesario para directivas como *ngIf
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core'; // 1. IMPORTAR ESTO
+import { CommonModule } from '@angular/common'; 
 import { RouterOutlet } from '@angular/router';
-import { ApiService } from './services/api.service'; // Importamos nuestro servicio
+import { ApiService } from './services/api.service';
 
 @Component({
   selector: 'app-root',
@@ -12,16 +12,19 @@ import { ApiService } from './services/api.service'; // Importamos nuestro servi
 })
 export class AppComponent implements OnInit {
   title = 'frontend-futbol';
-  partido: any = null; // Aquí guardaremos los datos del partido
+  partido: any = null;
 
-  constructor(private api: ApiService) {}
+  // 2. INYECTARLO EN EL CONSTRUCTOR (private cd: ChangeDetectorRef)
+  constructor(private api: ApiService, private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
-    // Al cargar la página, pedimos el partido al backend
     this.api.getProximoPartido().subscribe({
       next: (data) => {
-        console.log('Datos recibidos:', data);
+        console.log('Datos recibidos y asignando a variable:', data);
         this.partido = data;
+        
+        // 3. FORZAR LA ACTUALIZACIÓN DE LA PANTALLA
+        this.cd.detectChanges(); 
       },
       error: (err) => {
         console.error('Error conectando al backend:', err);
