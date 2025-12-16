@@ -2,12 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>FrontendUdvillalbaOK</title>
+    <title>UD Villalba-Infantil Femenino</title>
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="assets/escudos/logo-udvillalba.png" />
   </head>
   <body>
+    <form action="http://localhost:5000/images/multi" enctype="multipart/form-data" method="post">
+      <input type="file" name="photos" id="photos" multiple="true" />
+      <input type="submit" value="Enviar" />
+    </form>
     <app-root></app-root>
   </body>
 </html>
