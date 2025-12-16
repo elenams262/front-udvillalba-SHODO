@@ -44,8 +44,14 @@ export class ClasificacionComponent implements OnInit {
   }
 
   cargarDatos() {
+    console.log('🔄 Cargando datos de clasificación...');
     this.api.getClasificacion().subscribe({
       next: (datos: any[]) => {
+        console.log('✅ Datos recibidos del backend:', datos);
+        if (!datos || datos.length === 0) {
+          console.warn('⚠️ La lista de equipos está vacía');
+        }
+
         // CORREGIDO: Eliminado paréntesis extra y ajustado mapeo con tu Backend
         this.clasificacion = datos.map((d) => ({
           _id: d._id,
@@ -67,7 +73,10 @@ export class ClasificacionComponent implements OnInit {
 
         this.reordenarTabla();
       },
-      error: (err) => console.error('Error cargando clasificación:', err),
+      error: (err) => {
+        console.error('❌ Error cargando clasificación:', err);
+        alert('Error al cargar la clasificación. Revisa la consola.');
+      },
     });
   }
 
