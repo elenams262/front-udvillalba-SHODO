@@ -8,12 +8,22 @@
     <link rel="icon" type="image/x-icon" href="assets/escudos/logo-udvillalba.png" />
   </head>
   <body>
-    <h1>Para subir fotos</h1>
+    <h1>Para subir jugadoras</h1>
 
-    <form action="http://localhost:5000/images/multi" enctype="multipart/form-data" method="post">
-      <input type="file" name="photos" id="photos" multiple="true" />
+    <form
+      action="http://localhost:5000/jugadoras/multi"
+      enctype="multipart/form-data"
+      method="post"
+    >
+      <input type="file" name="jugadoras" id="jugadoras" multiple="true" />
       <input type="submit" value="Enviar" />
     </form>
+    <h1>Para subir escudos</h1>
+    <form action="http://localhost:5000/escudos/multi" enctype="multipart/form-data" method="post">
+      <input type="file" name="escudos" id="escudos" multiple="true" />
+      <input type="submit" value="Enviar" />
+    </form>
+
     <app-root></app-root>
   </body>
 </html>
