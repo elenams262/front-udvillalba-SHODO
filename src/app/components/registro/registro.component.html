@@ -1,1 +1,39 @@
-<p>registro works!</p>
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>Crear Cuenta</h2>
+
+    <form (ngSubmit)="registrar()">
+      <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" name="nombre" [(ngModel)]="usuario.nombre" required />
+      </div>
+
+      <div class="form-group">
+        <label>Apellidos</label>
+        <input type="text" name="apellidos" [(ngModel)]="usuario.apellidos" required />
+      </div>
+
+      <div class="form-group">
+        <label>Correo</label>
+        <input type="email" name="correo" [(ngModel)]="usuario.correo" required />
+      </div>
+
+      <div class="form-group">
+        <label>Teléfono</label>
+        <input type="tel" name="telefono" [(ngModel)]="usuario.telefono" required />
+      </div>
+
+      <div class="form-group">
+        <label>Fecha de Nacimiento</label>
+        <input type="date" name="fechanacimiento" [(ngModel)]="usuario.fechanacimiento" required />
+      </div>
+
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input type="password" name="password" [(ngModel)]="usuario.password" required />
+      </div>
+
+      <button type="submit" class="btn-primary">Registrarse</button>
+    </form>
+  </div>
+</div>
