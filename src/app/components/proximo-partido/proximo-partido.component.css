@@ -1,0 +1,71 @@
+/* --- TARJETA DEL PARTIDO --- */
+.match-card {
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 15px; /* Bordes redondeados */
+  padding: 30px;
+  display: inline-block;
+  min-width: 320px;
+  max-width: 500px;
+
+  /* Sombra suave para dar efecto de profundidad (3D) */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+
+  /* Animación suave si pasas el ratón por encima */
+  transition: transform 0.3s ease;
+}
+
+.match-card:hover {
+  transform: translateY(-5px); /* La tarjeta "flota" un poco al pasar el ratón */
+}
+
+/* Títulos dentro de la tarjeta */
+.match-card h2 {
+  color: #3498db; /* Azul corporativo */
+  margin-top: 0;
+  font-size: 1.8rem;
+}
+
+.match-card h3 {
+  color: #7f8c8d; /* Gris para subtítulos */
+  font-weight: normal;
+  border-bottom: 2px solid #f0f0f0; /* Línea separadora sutil */
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+/* Texto de los detalles */
+.match-details {
+  font-size: 1.1rem;
+  line-height: 1.8; /* Espacio entre líneas para leer mejor */
+  color: #333;
+  text-align: left; /* Alineado a la izquierda queda más ordenado */
+  margin-bottom: 20px;
+}
+
+/* Estilos para textos de estado (Casa/Fuera) */
+.status-home {
+  color: #27ae60; /* Verde */
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding: 10px;
+  background-color: #eafaf1; /* Fondo verde muy clarito */
+  border-radius: 8px;
+}
+
+.status-away {
+  color: #c0392b; /* Rojo */
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding: 10px;
+  background-color: #fdedec; /* Fondo rojo muy clarito */
+  border-radius: 8px;
+}
+
+/* Mensaje de carga */
+.loading-msg {
+  font-style: italic;
+  color: #7f8c8d;
+  font-size: 1.2rem;
+  margin-top: 50px;
+}

@@ -1,37 +1,15 @@
-<nav style="background: #2c3e50; padding: 1rem; text-align: center">
-  <a routerLink="/" style="color: white; margin: 0 10px; text-decoration: none; font-weight: bold"
-    >INICIO</a
-  >
-  <a routerLink="/login" style="color: white; margin: 0 10px; text-decoration: none">LOGIN</a>
-  <a routerLink="/registro" style="color: white; margin: 0 10px; text-decoration: none">REGISTRO</a>
+<nav>
+  <ul>
+    <li><a routerLink="/inicio" routerLinkActive="activo">Inicio</a></li>
+    <li><a routerLink="/jornada" routerLinkActive="activo">Jornada</a></li>
+    <li><a routerLink="/clasificacion" routerLinkActive="activo">Clasificación</a></li>
+    <li><a routerLink="/menu" routerLinkActive="activo">Menú</a></li>
+    <li><a routerLink="/entrenamientos" routerLinkActive="activo">Entrenamientos Extra</a></li>
+    <li><a routerLink="/noticias" routerLinkActive="activo">Noticias</a></li>
+    <li><a routerLink="/login" routerLinkActive="activo">Login</a></li>
+  </ul>
 </nav>
 
-<div class="main-container">
-  <h1>⚽ Mi App de Fútbol ⚽</h1>
-
-  @if (partido) {
-  <div class="match-card">
-    <h2>Próximo Encuentro</h2>
-    <h3>{{ partido.jornada }}</h3>
-
-    <div class="match-details">
-      <p><strong>🆚 Rival:</strong> {{ partido.rival }}</p>
-      <p><strong>📍 Ubicación:</strong> {{ partido.ubicacion }}</p>
-      <p><strong>📅 Fecha:</strong> {{ partido.fecha }}</p>
-      <p><strong>⏰ Hora:</strong> {{ partido.hora }}</p>
-    </div>
-
-    @if (partido.partidoCasa) {
-    <div class="status-home">🏠 JUGAMOS EN CASA</div>
-    } @else {
-    <div class="status-away">✈️ JUGAMOS FUERA</div>
-    }
-  </div>
-  } @else {
-  <div class="loading-msg">
-    <p>⏳ Cargando próximo partido...</p>
-  </div>
-  }
-</div>
+<hr />
 
 <router-outlet></router-outlet>

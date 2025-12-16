@@ -1,1 +1,23 @@
-<p>proximo-partido works!</p>
+@if (partido) {
+<div class="match-card">
+  <h2>Próximo Encuentro</h2>
+  <h3>{{ partido.jornada }}</h3>
+
+  <div class="match-details">
+    <p><strong>🆚 Rival:</strong> {{ partido.rival }}</p>
+    <p><strong>📍 Ubicación:</strong> {{ partido.ubicacion }}</p>
+    <p><strong>📅 Fecha:</strong> {{ partido.fecha | date : 'dd/MM/yyyy' }}</p>
+    <p><strong>⏰ Hora:</strong> {{ partido.hora }}</p>
+  </div>
+
+  @if (partido.partidoCasa) {
+  <div class="status-home">🏠 JUGAMOS EN CASA</div>
+  } @else {
+  <div class="status-away">✈️ JUGAMOS FUERA</div>
+  }
+</div>
+} @else {
+<div class="loading-msg">
+  <p>⏳ Buscando próximo partido...</p>
+</div>
+}

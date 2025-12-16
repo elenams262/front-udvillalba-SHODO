@@ -34,7 +34,7 @@ export class LoginComponent {
       next: (res) => {
         console.log('Login correcto:', res);
         localStorage.setItem('token', res.token);
-        this.router.navigate(['/']);
+        this.router.navigate(['/home']);
       },
       error: (err) => {
         console.error('Error login:', err);

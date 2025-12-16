@@ -1,12 +1,20 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
-import { RegistroComponent } from './components/registro/registro.component';
-// Si tienes un componente de Inicio (donde se ve el partido), impórtalo también.
-// Si el partido está en AppComponent, dejaremos la ruta vacía apuntando allí (o crearemos un HomeComponent luego).
+import { HomeComponent } from './components/home/home.component';
+import { ProximoPartidoComponent } from './components/proximo-partido/proximo-partido.component';
+import { LoginComponent } from './auth/login/login.component';
 
 export const routes: Routes = [
+  // CAMBIO AQUÍ: Ahora redirige a 'login' en vez de a 'inicio'
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+
   { path: 'login', component: LoginComponent },
-  { path: 'registro', component: RegistroComponent },
-  // Redirigir al login por defecto si no hay ruta (opcional)
-  // { path: '', redirectTo: '/login', pathMatch: 'full' }
+  { path: 'inicio', component: HomeComponent },
+  { path: 'jornada', component: ProximoPartidoComponent },
+
+  // ... resto de rutas (clasificacion, etc.) ...
+  { path: 'clasificacion', component: HomeComponent },
+  { path: 'menu', component: HomeComponent },
+  { path: 'entrenamientos', component: HomeComponent },
+  { path: 'extra', component: HomeComponent },
+  { path: 'noticias', component: HomeComponent },
 ];

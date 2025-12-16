@@ -1,88 +1,54 @@
-/* Contenedor principal para centrar todo */
-.main-container {
-  text-align: center;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  padding: 20px;
-  background-color: #f4f4f9; /* Color de fondo suave para toda la sección */
-  min-height: 100vh; /* Que ocupe al menos toda la altura de la pantalla */
+/* La barra de navegación en sí */
+nav {
+  background-color: #333; /* Fondo gris oscuro */
+  padding: 0 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra suave */
 }
 
-/* Título principal de la App */
-h1 {
-  color: #2c3e50;
-  margin-bottom: 30px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+/* La lista (ul) */
+nav ul {
+  list-style-type: none; /* Quita los puntos negros */
+  margin: 0;
+  padding: 0;
+  display: flex; /* Esto es MÁGICO: pone los elementos en horizontal */
+  align-items: center; /* Centra verticalmente */
+  height: 60px; /* Altura de la barra */
 }
 
-/* --- TARJETA DEL PARTIDO --- */
-.match-card {
-  background-color: white;
-  border: 1px solid #e0e0e0;
-  border-radius: 15px; /* Bordes redondeados */
-  padding: 30px;
-  display: inline-block;
-  min-width: 320px;
-  max-width: 500px;
-
-  /* Sombra suave para dar efecto de profundidad (3D) */
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-
-  /* Animación suave si pasas el ratón por encima */
-  transition: transform 0.3s ease;
+/* Los elementos individuales (li) */
+nav ul li {
+  /* Si quieres empujar el Login a la derecha, descomenta la siguiente línea en el LI del login */
+  /* margin-left: auto; */
 }
 
-.match-card:hover {
-  transform: translateY(-5px); /* La tarjeta "flota" un poco al pasar el ratón */
-}
-
-/* Títulos dentro de la tarjeta */
-.match-card h2 {
-  color: #3498db; /* Azul corporativo */
-  margin-top: 0;
-  font-size: 1.8rem;
-}
-
-.match-card h3 {
-  color: #7f8c8d; /* Gris para subtítulos */
-  font-weight: normal;
-  border-bottom: 2px solid #f0f0f0; /* Línea separadora sutil */
-  padding-bottom: 10px;
-  margin-bottom: 20px;
-}
-
-/* Texto de los detalles */
-.match-details {
-  font-size: 1.1rem;
-  line-height: 1.8; /* Espacio entre líneas para leer mejor */
-  color: #333;
-  text-align: left; /* Alineado a la izquierda queda más ordenado */
-  margin-bottom: 20px;
-}
-
-/* Estilos para textos de estado (Casa/Fuera) */
-.status-home {
-  color: #27ae60; /* Verde */
+/* Los enlaces (a) */
+nav ul li a {
+  text-decoration: none; /* Quita el subrayado feo */
+  color: white; /* Letra blanca */
+  font-family: sans-serif;
   font-weight: bold;
-  font-size: 1.2rem;
-  padding: 10px;
-  background-color: #eafaf1; /* Fondo verde muy clarito */
-  border-radius: 8px;
+  padding: 0 15px; /* Espacio entre palabras */
+  height: 60px;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.3s; /* Suaviza el cambio de color */
 }
 
-.status-away {
-  color: #c0392b; /* Rojo */
-  font-weight: bold;
-  font-size: 1.2rem;
-  padding: 10px;
-  background-color: #fdedec; /* Fondo rojo muy clarito */
-  border-radius: 8px;
+/* Efecto al pasar el ratón por encima (Hover) */
+nav ul li a:hover {
+  background-color: #555; /* Se aclara un poco al pasar el ratón */
+  color: #4caf50; /* Texto verde al pasar el ratón */
 }
 
-/* Mensaje de carga */
-.loading-msg {
-  font-style: italic;
-  color: #7f8c8d;
-  font-size: 1.2rem;
-  margin-top: 50px;
+/* Estilo para la página activa (cuando estás dentro) */
+/* Nota: asegúrate de que en el HTML pusiste routerLinkActive="activo" */
+.activo {
+  border-bottom: 4px solid #4caf50; /* Una línea verde debajo de la opción activa */
+  background-color: #222;
+}
+
+/* Empujar el Login a la derecha (Opcional) */
+/* Si quieres que el último elemento se vaya a la derecha del todo: */
+nav ul li:last-child {
+  margin-left: auto;
 }

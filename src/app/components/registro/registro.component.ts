@@ -40,7 +40,7 @@ export class RegistroComponent {
         if (res.token) {
           localStorage.setItem('token', res.token);
         }
-        this.router.navigate(['/']);
+        this.router.navigate(['/home']);
       },
       error: (err) => {
         console.error(err);
