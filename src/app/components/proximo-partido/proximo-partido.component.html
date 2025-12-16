@@ -1,7 +1,56 @@
 <div class="container-center">
   @if (partido) {
   <div class="match-card">
-    <h2>Próximo Encuentro</h2>
+    <div class="header">
+      <h2>Próximo Encuentro</h2>
+
+      @if (esAdmin) {
+      <div class="admin-buttons">
+        <button class="btn btn-sm btn-warning edit-btn" (click)="toggleEdicion()">
+          {{ modoEdicion ? '✖️ Cancelar' : '✏️ Editar' }}
+        </button>
+
+        @if (!modoEdicion) {
+        <button class="btn btn-sm btn-danger" style="margin-left: 10px" (click)="eliminarPartido()">
+          🗑️ Borrar
+        </button>
+        }
+      </div>
+      }
+    </div>
+
+    @if (modoEdicion) {
+    <div class="edit-form">
+      <div class="form-group">
+        <label>Jornada:</label>
+        <input type="text" [(ngModel)]="partido.jornada" class="form-control mb-2" />
+      </div>
+      <div class="form-group">
+        <label>Rival:</label>
+        <input type="text" [(ngModel)]="partido.rival" class="form-control mb-2" />
+      </div>
+      <div class="form-group">
+        <label>Ubicación:</label>
+        <input type="text" [(ngModel)]="partido.ubicacion" class="form-control mb-2" />
+      </div>
+      <div class="form-group">
+        <label>Fecha (YYYY-MM-DD):</label>
+        <input type="text" [(ngModel)]="partido.fecha" class="form-control mb-2" />
+      </div>
+      <div class="form-group">
+        <label>Hora:</label>
+        <input type="text" [(ngModel)]="partido.hora" class="form-control mb-2" />
+      </div>
+      <div class="form-group">
+        <label>¿Jugamos en casa?</label>
+        <select [(ngModel)]="partido.partidoCasa" class="form-control mb-3">
+          <option [ngValue]="true">Sí (Casa)</option>
+          <option [ngValue]="false">No (Fuera)</option>
+        </select>
+      </div>
+      <button class="btn btn-success w-100" (click)="guardarCambios()">💾 Guardar Cambios</button>
+    </div>
+    } @else {
     <h3>{{ partido.jornada }}</h3>
 
     <div class="match-details">
@@ -15,11 +64,25 @@
     <div class="status-home">🏠 JUGAMOS EN CASA</div>
     } @else {
     <div class="status-away">✈️ JUGAMOS FUERA</div>
-    }
+    } }
   </div>
   } @else {
-  <div class="loading-msg">
-    <p>⏳ Buscando próximo partido...</p>
+  <div class="match-card">
+    <div class="header">
+      <h2>Próximo Encuentro</h2>
+    </div>
+    <div class="loading-msg">
+      <p>⏳ No hay partidos programados o buscando...</p>
+
+      @if (esAdmin) {
+      <button
+        class="btn btn-primary mt-3"
+        (click)="modoEdicion = true; partido = { jornada: 'Nueva Jornada', partidoCasa: true }"
+      >
+        ➕ Crear Primer Partido
+      </button>
+      }
+    </div>
   </div>
   }
 </div>

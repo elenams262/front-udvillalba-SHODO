@@ -29,10 +29,18 @@
 }
 
 /* Títulos dentro de la tarjeta */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0px;
+}
+
 .match-card h2 {
   color: #3498db; /* Azul corporativo */
   margin-top: 0;
   font-size: 1.8rem;
+  margin-bottom: 0;
 }
 
 .match-card h3 {
@@ -69,6 +77,44 @@
   padding: 10px;
   background-color: #fdedec; /* Fondo rojo muy clarito */
   border-radius: 8px;
+}
+
+/* Estilos del formulario de edición */
+.edit-form {
+  margin-top: 15px;
+  text-align: left;
+}
+
+.edit-form label {
+  font-weight: 600;
+  color: #34495e;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.form-control:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+.mb-3 {
+  margin-bottom: 1rem;
+}
+.w-100 {
+  width: 100%;
 }
 
 /* Mensaje de carga */

@@ -1,4 +1,3 @@
-//Esto es para que el servicio se inyecte en cualquier parte de la app
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -7,14 +6,13 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ApiService {
-  // La URL de tu servidor backend
   private apiUrl = 'http://localhost:5000/api';
 
   constructor(private http: HttpClient) {}
 
   // Método auxiliar para obtener el token guardado
   private getHeaders() {
-    const token = localStorage.getItem('token'); // Recuperamos el token del navegador
+    const token = localStorage.getItem('token');
     return {
       headers: new HttpHeaders({
         Authorization: `Bearer ${token}`,
@@ -23,7 +21,6 @@ export class ApiService {
   }
 
   // --- AUTENTICACIÓN ---
-
   registro(usuario: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/auth/register`, usuario);
   }
@@ -37,30 +34,39 @@ export class ApiService {
   }
 
   // --- CLASIFICACIÓN ---
-
   getClasificacion(): Observable<any> {
     return this.http.get(`${this.apiUrl}/clasificacion`);
   }
-  // --- GESTIÓN CLASIFICACIÓN (Solo Admin) ---
 
-  // Crear un nuevo equipo
   crearEquipo(equipo: any): Observable<any> {
-    // Importante: pasamos this.getHeaders() para que el backend sepa que somos Admin
     return this.http.post(`${this.apiUrl}/clasificacion`, equipo, this.getHeaders());
   }
 
-  // Actualizar datos de un equipo (puntos, goles, etc.)
   actualizarEquipo(id: string, equipo: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/clasificacion/${id}`, equipo, this.getHeaders());
   }
 
-  // Eliminar un equipo de la tabla
   eliminarEquipo(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/clasificacion/${id}`, this.getHeaders());
   }
-  // --- PARTIDOS ---
+
+  // --- PARTIDOS (JORNADA) ---
 
   getProximoPartido(): Observable<any> {
     return this.http.get(`${this.apiUrl}/jornada`);
+  }
+
+  // ✅ ESTAS SON LAS QUE FALTABAN:
+  crearPartido(partido: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/jornada`, partido, this.getHeaders());
+  }
+
+  actualizarPartido(id: string, partido: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/jornada/${id}`, partido, this.getHeaders());
+  }
+  // ... (después de actualizarPartido)
+
+  eliminarPartido(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/jornada/${id}`, this.getHeaders());
   }
 }
