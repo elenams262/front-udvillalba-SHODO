@@ -1,0 +1,164 @@
+.tienda-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 120px; /* Separación del navbar */
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header-section {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.header-section h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: white; /* Consistente con el resto de la app */
+  /* El subrayado viene de styles.css global */
+}
+
+.header-section p {
+  color: #666; /* O blanco si el fondo es oscuro, pero el fondo es imagen */
+  /* Wait, the background is an image. Dark text might be invisible.
+     Let's check menu/home. Menu has dark text on white table bg, but header?
+     In Home, h2 is white.
+     Let's stick to white or verify background.
+     Global background is an image. So text should be readable.
+     Global styles sets h2 to white.
+     Let's make p white too and give it a shadow.
+  */
+  color: white;
+  font-size: 1.2rem;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.grid-productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.producto-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.producto-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.img-container {
+  height: 250px;
+  overflow: hidden;
+  background-color: #f8f9fa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.img-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* Para ver el producto entero sin recortar */
+  transition: transform 0.3s ease;
+}
+
+.producto-card:hover .img-container img {
+  transform: scale(1.05);
+}
+
+.info-container {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Para que ocupen igual altura */
+}
+
+.info-container h3 {
+  font-size: 1.25rem;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.desc {
+  color: #7f8c8d;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.bottom-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto; /* Empuja al fondo */
+}
+
+.precio {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #27ae60;
+}
+
+.btn-comprar {
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-comprar:hover {
+  background-color: #27ae60;
+}
+
+.loading {
+  text-align: center;
+  color: white;
+  font-size: 1.5rem;
+  text-shadow: 1px 1px 2px black;
+}
+
+/* Feedback Añadido */
+.added-feedback {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+.msg-added {
+  color: #27ae60;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.btn-goto-cart {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.btn-goto-cart:hover {
+  background-color: #219150;
+  transform: scale(1.05);
+}

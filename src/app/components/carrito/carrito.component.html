@@ -1,0 +1,36 @@
+<div class="carrito-container">
+  <h2>Tu Carrito</h2>
+
+  @if (items.length === 0) {
+  <div class="empty-cart">
+    <p>El carrito está vacío</p>
+    <button routerLink="/tienda" class="btn-seguir">Volver a la Tienda</button>
+  </div>
+  } @else {
+  <div class="cart-content">
+    <div class="cart-items">
+      @for (item of items; track item._id) {
+      <div class="cart-item">
+        <img [src]="getImagenUrl(item.imagen)" [alt]="item.nombre" class="item-img" />
+        <div class="item-details">
+          <h3>{{ item.nombre }}</h3>
+          <p>Cantidad: {{ item.cantidad }}</p>
+          <span class="price">{{ item.precio | currency : 'EUR' }}</span>
+        </div>
+        <button class="btn-remove" (click)="eliminar(item._id)">🗑️</button>
+      </div>
+      }
+    </div>
+
+    <div class="cart-summary">
+      <h3>Resumen</h3>
+      <div class="total-row">
+        <span>Total a pagar:</span>
+        <span class="total-price">{{ total | currency : 'EUR' }}</span>
+      </div>
+      <button class="btn-checkout" (click)="checkout()">Finalizar Compra</button>
+      <button class="btn-clear" (click)="vaciar()">Vaciar Carrito</button>
+    </div>
+  </div>
+  }
+</div>

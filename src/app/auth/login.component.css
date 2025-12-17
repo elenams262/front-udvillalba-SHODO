@@ -1,8 +1,10 @@
 .auth-container {
   display: flex;
   justify-content: center;
-  align-items: center;
-  min-height: 80vh; /* Ocupa casi toda la pantalla */
+  align-items: flex-start; /* Alineamos arriba y el padding empuja el contenido */
+  min-height: 100vh;
+  padding-top: 160px; /* Margen superior seguro para el navbar */
+  padding-bottom: 50px;
 }
 
 .auth-card {

@@ -71,4 +71,9 @@ export class ApiService {
   eliminarPartido(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/jornada/${id}`, this.getHeaders());
   }
+
+  // --- TIENDA ---
+  getProductos(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/productos`);
+  }
 }

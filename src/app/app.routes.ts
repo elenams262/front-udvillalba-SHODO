@@ -6,6 +6,9 @@ import { LoginComponent } from './auth/login.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { ClasificacionComponent } from './components/clasificacion/clasificacion.component';
 import { RegistroComponent } from './components/registro/registro.component';
+import { EntrenamientosComponent } from './entrenamientos/entrenamientos.component';
+import { TiendaComponent } from './tienda/tienda.component';
+import { CarritoComponent } from './components/carrito/carrito.component';
 
 export const routes: Routes = [
   // CAMBIO AQUÍ: Ahora redirige a 'login' en vez de a 'inicio'
@@ -18,8 +21,13 @@ export const routes: Routes = [
   // ... resto de rutas (clasificacion, etc.) ...
   { path: 'clasificacion', component: ClasificacionComponent },
   { path: 'menu', component: MenuComponent },
-  { path: 'entrenamientos', component: HomeComponent },
-  { path: 'extra', component: HomeComponent },
-  { path: 'noticias', component: HomeComponent },
+  { path: 'entrenamientos', component: EntrenamientosComponent },
   { path: 'registro', component: RegistroComponent },
+  {
+    path: 'tienda',
+    children: [
+      { path: '', component: TiendaComponent },
+      { path: 'carrito', component: CarritoComponent },
+    ],
+  },
 ];

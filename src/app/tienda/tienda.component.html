@@ -1,0 +1,38 @@
+<div class="tienda-container">
+  <div class="header-section">
+    <h2>Tienda Oficial</h2>
+    <p>¡Viste los colores de tu equipo!</p>
+  </div>
+
+  @if (cargando) {
+  <div class="loading">
+    <p>Cargando productos...</p>
+  </div>
+  } @else {
+  <div class="grid-productos">
+    @for (producto of productos; track producto._id) {
+    <div class="producto-card">
+      <div class="img-container">
+        <img [src]="getImagenUrl(producto.imagen)" [alt]="producto.nombre" />
+      </div>
+      <div class="info-container">
+        <h3>{{ producto.nombre }}</h3>
+        <p class="desc">{{ producto.descripcion }}</p>
+        <div class="bottom-info">
+          <span class="precio">{{ producto.precio | currency : 'EUR' }}</span>
+
+          @if (productoAgregadoId === producto._id) {
+          <div class="added-feedback">
+            <span class="msg-added">✅ Añadido</span>
+            <button class="btn-goto-cart" routerLink="/tienda/carrito">Ir al Carrito</button>
+          </div>
+          } @else {
+          <button class="btn-comprar" (click)="comprar(producto)">Comprar</button>
+          }
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+  }
+</div>
