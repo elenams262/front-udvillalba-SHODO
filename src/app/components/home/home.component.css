@@ -1,13 +1,13 @@
 /* Sección general */
 .seccion-jugadoras {
   padding: 60px 20px;
-  background-color: #f8f9fa;
+  margin-top: 100px; /* Evitar que el navbar tape el contenido */
 }
 
 .seccion-jugadoras h2 {
   text-align: center;
   font-size: 2.5rem;
-  color: #2c3e50;
+  color: white;
   margin-bottom: 40px;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -18,10 +18,10 @@
   display: grid;
   /* Crea columnas automáticamente. Mínimo 280px de ancho cada una. */
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  
+
   /* Espacio entre tarjetas */
   gap: 30px;
-  
+
   /* Centrado y ancho máximo */
   max-width: 1200px;
   margin: 0 auto;

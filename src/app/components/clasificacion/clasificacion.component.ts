@@ -7,8 +7,8 @@ import { AuthService } from '../../services/auth.service';
 export interface Equipo {
   _id?: string;
   posicion: number;
-  escudo: string;
-  nombre: string;
+  escudo: string; // Nombre del archivo (ej: villalba.png)
+  nombre: string; // (En la BBDD se llama 'equipo')
   puntos: number;
   partidosJugados: number;
   partidosGanados: number;
@@ -16,7 +16,6 @@ export interface Equipo {
   partidosPerdidos: number;
   golesFavor: number;
   golesContra: number;
-  forma: string[];
 }
 
 @Component({
@@ -31,105 +30,8 @@ export class ClasificacionComponent implements OnInit {
   esAdmin: boolean = false;
   modoEdicion: boolean = false;
 
-  constructor(
-    public api: ApiService,
-    public authService: AuthService,
-    public cd: ChangeDetectorRef
-  ) {}
-
-  ngOnInit(): void {
-    this.esAdmin = this.authService.isAdmin();
-    console.log('¿Es admin?', this.esAdmin); // Debug
-    this.cargarDatos();
-  }
-
-  cargarDatos() {
-    console.log('🔄 Cargando datos de clasificación...');
-    this.api.getClasificacion().subscribe({
-      next: (datos: any[]) => {
-        console.log('✅ Datos recibidos del backend:', datos);
-        if (!datos || datos.length === 0) {
-          console.warn('⚠️ La lista de equipos está vacía');
-        }
-
-        // CORREGIDO: Eliminado paréntesis extra y ajustado mapeo con tu Backend
-        this.clasificacion = datos.map((d) => ({
-          _id: d._id,
-          posicion: 0, // Se recalcula en reordenarTabla
-          escudo: d.escudo || '', // Añade lógica de escudo si la tienes
-          nombre: d.equipo || d.nombre, // Tu backend usa 'equipo' en el modelo
-          puntos: d.puntos,
-
-          // Mapeo Backend (GF/GC) -> Frontend (golesFavor/golesContra)
-          partidosJugados: d.partidosJugados || 0,
-          partidosGanados: d.partidosGanados || 0,
-          partidosEmpatados: d.partidosEmpatados || 0,
-          partidosPerdidos: d.partidosPerdidos || 0,
-          golesFavor: d.GF || 0, // Backend manda GF
-          golesContra: d.GC || 0, // Backend manda GC
-
-          forma: d.forma || [],
-        }));
-
-        this.reordenarTabla();
-      },
-      error: (err) => {
-        console.error('❌ Error cargando clasificación:', err);
-        alert('Error al cargar la clasificación. Revisa la consola.');
-      },
-    });
-  }
-
-  toggleEdicion() {
-    this.modoEdicion = !this.modoEdicion;
-  }
-
-  private reordenarTabla() {
-    this.clasificacion.sort((a, b) => {
-      if (b.puntos !== a.puntos) return b.puntos - a.puntos;
-      const diffA = a.golesFavor - a.golesContra;
-      const diffB = b.golesFavor - b.golesContra;
-      if (diffB !== diffA) return diffB - diffA;
-      return b.golesFavor - a.golesFavor;
-    });
-
-    this.clasificacion.forEach((equipo, index) => {
-      equipo.posicion = index + 1;
-    });
-
-    this.cd.detectChanges();
-  }
-
-  guardarCambios(equipo: Equipo) {
-    if (!confirm(`¿Guardar cambios de ${equipo.nombre}?`)) return;
-
-    const id = equipo._id;
-
-    if (!id) {
-      alert('Error: No se encuentra el ID del equipo');
-      return;
-    }
-
-    // CORREGIDO: Preparamos los datos como los espera el Backend (GF y GC)
-    const datosParaBackend = {
-      ...equipo,
-      GF: equipo.golesFavor, // Traducimos al nombre del modelo
-      GC: equipo.golesContra,
-    };
-
-    this.api.actualizarEquipo(id, datosParaBackend).subscribe({
-      next: () => {
-        this.reordenarTabla();
-        alert('✅ Clasificación actualizada');
-      },
-      error: (err) => {
-        console.error(err);
-        alert('❌ Error al guardar en el servidor');
-      },
-    });
-  }
-
-  nuevoEquipo: Equipo = {
+  // Objeto para crear nuevos equipos
+  nuevoEquipo = {
     posicion: 0,
     escudo: '',
     nombre: '',
@@ -140,33 +42,92 @@ export class ClasificacionComponent implements OnInit {
     partidosPerdidos: 0,
     golesFavor: 0,
     golesContra: 0,
-    forma: [],
   };
 
-  crearEquipo() {
-    if (!this.nuevoEquipo.nombre.trim()) {
-      alert('⚠️ El nombre del equipo es obligatorio');
-      return;
-    }
+  constructor(
+    public api: ApiService, // public para poder usarlo en el HTML
+    public authService: AuthService,
+    public cd: ChangeDetectorRef
+  ) {}
 
-    // Mapeo para el backend
+  ngOnInit(): void {
+    this.esAdmin = this.authService.isAdmin();
+    this.cargarDatos();
+  }
+
+  cargarDatos() {
+    this.api.getClasificacion().subscribe({
+      next: (data: any[]) => {
+        // Mapeamos los datos del backend (que usa 'equipo') a nuestro interface (que usa 'nombre')
+        this.clasificacion = data.map((item, index) => ({
+          _id: item._id,
+          posicion: index + 1,
+          escudo: item.escudo || '', // Si no hay escudo, string vacío
+          nombre: item.equipo, // El backend manda 'equipo', nosotros usamos 'nombre'
+          puntos: item.puntos,
+          partidosJugados: item.partidosJugados,
+          partidosGanados: item.partidosGanados,
+          partidosEmpatados: item.partidosEmpatados,
+          partidosPerdidos: item.partidosPerdidos,
+          golesFavor: item.GF,
+          golesContra: item.GC,
+        }));
+        this.cd.detectChanges(); // Forzar actualización de la vista
+      },
+      error: (err) => console.error('Error cargando clasificación:', err),
+    });
+  }
+
+  toggleEdicion() {
+    this.modoEdicion = !this.modoEdicion;
+  }
+
+  // --- ACTUALIZAR UN EQUIPO EXISTENTE ---
+  guardarCambios(equipo: Equipo) {
+    if (!equipo._id) return;
+
+    // Preparamos el objeto tal cual lo espera el Backend
     const datosBackend = {
-      equipo: this.nuevoEquipo.nombre, // Importante: el backend espera 'equipo'
-      puntos: this.nuevoEquipo.puntos,
+      equipo: equipo.nombre,
+      escudo: equipo.escudo, // <--- ENVIAMOS EL ESCUDO
+      partidosJugados: equipo.partidosJugados,
+      partidosGanados: equipo.partidosGanados,
+      partidosEmpatados: equipo.partidosEmpatados,
+      partidosPerdidos: equipo.partidosPerdidos,
+      GF: equipo.golesFavor,
+      GC: equipo.golesContra,
+    };
+
+    this.api.actualizarEquipo(equipo._id, datosBackend).subscribe({
+      next: () => {
+        alert('✅ Datos guardados correctamente');
+        // No hace falta recargar toda la tabla, ya lo vemos editado
+      },
+      error: (err) => {
+        console.error(err);
+        alert('❌ Error al guardar');
+      },
+    });
+  }
+
+  // --- CREAR UN EQUIPO NUEVO ---
+  crearEquipo() {
+    const datosBackend = {
+      equipo: this.nuevoEquipo.nombre,
+      escudo: this.nuevoEquipo.escudo, // <--- ENVIAMOS EL ESCUDO
       partidosJugados: this.nuevoEquipo.partidosJugados,
       partidosGanados: this.nuevoEquipo.partidosGanados,
       partidosEmpatados: this.nuevoEquipo.partidosEmpatados,
       partidosPerdidos: this.nuevoEquipo.partidosPerdidos,
       GF: this.nuevoEquipo.golesFavor,
       GC: this.nuevoEquipo.golesContra,
-      escudo: this.nuevoEquipo.escudo,
     };
 
     this.api.crearEquipo(datosBackend).subscribe({
       next: () => {
-        alert('✅ Equipo añadido correctamente');
-        this.cargarDatos();
-        // Resetear formulario
+        alert('✅ Equipo creado');
+        this.cargarDatos(); // Recargamos para que aparezca ordenado
+        // Limpiamos el formulario
         this.nuevoEquipo = {
           posicion: 0,
           escudo: '',
@@ -178,34 +139,19 @@ export class ClasificacionComponent implements OnInit {
           partidosPerdidos: 0,
           golesFavor: 0,
           golesContra: 0,
-          forma: [],
         };
       },
       error: (err) => {
-        console.error('Error al crear equipo:', err);
-        alert('❌ Error al crear el equipo. Revisa la consola.');
+        console.error(err);
+        alert('❌ Error al crear equipo');
       },
     });
   }
 
-  // --- Estilos Visuales ---
   getClassForPosition(posicion: number): string {
     if (posicion <= 2) return 'ascenso-directo';
     else if (posicion <= 5) return 'playoff';
-    else if (posicion >= 16) return 'descenso';
+    else if (posicion >= 15) return 'descenso';
     return '';
-  }
-
-  getFormaClass(resultado: string): string {
-    switch (resultado) {
-      case 'G':
-        return 'bg-success';
-      case 'E':
-        return 'bg-warning text-dark';
-      case 'P':
-        return 'bg-danger';
-      default:
-        return 'bg-secondary';
-    }
   }
 }

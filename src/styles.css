@@ -72,7 +72,7 @@ nav {
 }
 
 h2 {
-  color: rgb(16, 173, 50); /* Verde corporativo por defecto */
+  color: white; /* Texto blanco en lugar de verde */
   font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-weight: 800; /* Extra bold */
   text-transform: uppercase;
@@ -92,7 +92,7 @@ h2::after {
   transform: translateX(-50%);
   width: 80px;
   height: 4px;
-  background-color: rgb(255, 255, 255); /* Siempre verde para mantener identidad */
+  background-color: rgb(16, 173, 50); /* Verde para la línea inferior */
   border-radius: 2px;
 }
 
@@ -101,23 +101,15 @@ h2.text-white {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra más fuerte para legibilidad sobre fondo/imagen */
 }
 
-.footer-box {
-  background-color: #fff;
-  text-align: center;
-  width: 100%;
-  margin: 0;
-  display: flex;
-
-  a {
-    color: rgb(0, 0, 0);
-  }
-  button {
-    background-color: rgb(16, 173, 50);
-    border: none;
-    border-radius: 18px;
-    margin: 5px;
-    box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.414);
-  }
+a {
+  color: rgb(0, 0, 0);
+}
+button {
+  background-color: rgb(16, 173, 50);
+  border: none;
+  border-radius: 18px;
+  margin: 5px;
+  box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.414);
 }
 
 footer.bg-light {
@@ -128,7 +120,10 @@ footer.bg-light {
   color: #ffcc00 !important; /* Amarillo "escudo" */
   text-shadow: 3px 3px 4px rgba(0, 0, 0, 0.75); /* Sombra difuminada y no tan negra */
 }
-
+footer .list-inline-item a:hover {
+  text-decoration: underline !important;
+  color: #212529 !important;
+}
 /* GLOBAL NEWS CARD STYLES */
 /* Animaciones de entrada */
 .fade-in {

@@ -5,6 +5,7 @@
   align-items: flex-start; /* Alineado arriba pero centrado horizontalmente, o center para centrar total */
   padding: 40px 20px;
   width: 100%;
+  margin-top: 100px; /* Evitar que el navbar tape el contenido */
 }
 
 /* --- TARJETA DEL PARTIDO --- */

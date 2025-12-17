@@ -13,29 +13,70 @@ import { PlayerCardComponent, Player } from '../player-card/player-card.componen
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
-  
   // 3. Definimos los datos de las jugadoras (Estos datos se pasan al HTML)
   jugadoras: Player[] = [
     {
-      name: 'Ana García',      // Cambia esto por los nombres reales
+      name: 'Carla Mora',
+      position: 'Portera',
+      number: 1,
+      image: 'portera.png',
+      video: 'video-portera.mp4',
+    },
+    {
+      name: 'Ana García', // Cambia esto por los nombres reales
       position: 'Delantera',
       number: 9,
-      image: 'jugadora1.jpg',      // Nombre del archivo en la carpeta uploads
-      video: 'video-jugadora1.mp4' // Nombre del archivo en la carpeta uploads
+      image: 'jugadora1.png', // Nombre del archivo en la carpeta uploads
+      video: 'video-jugadora1.mp4', // Nombre del archivo en la carpeta uploads
     },
     {
       name: 'Laura Ruiz',
       position: 'Centrocampista',
       number: 14,
-      image: 'jugadora2.jpg',
-      video: 'video-jugadora2.mp4'
+      image: 'jugadora2.png',
+      video: 'video-jugadora2.mp4',
     },
     {
       name: 'María López',
-      position: 'Defensa',
+      position: 'Delantera',
       number: 4,
-      image: 'jugadora3.jpg',
-      video: 'video-jugadora3.mp4'
+      image: 'jugadora3.png',
+      video: 'video-jugadora3.mp4',
+    },
+    {
+      name: 'Nerea Sánchez',
+      position: 'Defensa',
+      number: 12,
+      image: 'jugadora4.png',
+      video: 'video-jugadora4.mp4',
+    },
+    {
+      name: 'Nerea Sánchez',
+      position: 'Defensa',
+      number: 15,
+      image: 'jugadora5.png',
+      video: 'video-jugadora5.mp4',
+    },
+    {
+      name: 'Lorena Rodríguez',
+      position: 'Delantera',
+      number: 11,
+      image: 'jugadora6.png',
+      video: 'video-jugadora6.mp4',
+    },
+    {
+      name: 'Alba García',
+      position: 'Defensa',
+      number: 3,
+      image: 'jugadora4.png',
+      video: 'video-jugadora4.2.mp4',
+    },
+    {
+      name: 'Silvia Rivas',
+      position: 'Mediocampista',
+      number: 7,
+      image: 'jugadora3.png',
+      video: 'video-jugadora3.2.mp4',
     },
   ];
 

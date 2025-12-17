@@ -3,7 +3,7 @@
     <h2>Clasificación</h2>
 
     @if (esAdmin) {
-    <button class="btn btn-warning" (click)="toggleEdicion()">
+    <button class="boton-editar btn btn-warning" (click)="toggleEdicion()">
       ⚙️ {{ modoEdicion ? 'Finalizar Edición' : 'Editar Clasificación' }}
     </button>
     }
@@ -22,7 +22,6 @@
           <th>PP</th>
           <th>GF</th>
           <th>GC</th>
-          <th>Forma</th>
           @if (modoEdicion) {
           <th>Acciones</th>
           }
@@ -34,22 +33,35 @@
           <td class="posicion">{{ equipo.posicion }}</td>
 
           <td class="equipo-col">
-            @if (equipo.escudo) {
-            <img [src]="api.URL_IMAGENES + equipo.escudo" alt="Escudo" class="escudo-img" />
-            }
+            @if (equipo.escudo) { @if (equipo.escudo.startsWith('http')) {
+            <img [src]="equipo.escudo" alt="Escudo" class="escudo-img" />
+            } @else {
+            <img
+              [src]="'http://localhost:5000/uploads/' + equipo.escudo"
+              alt="Escudo"
+              class="escudo-img"
+            />
+            } }
 
             <span class="nombre-equipo">{{ equipo.nombre }}</span>
-
             @if (modoEdicion) {
-            <input
-              type="text"
-              [(ngModel)]="equipo.escudo"
-              placeholder="Ej: Colmenarejo.png"
-              class="form-control form-control-sm"
-              style="width: 150px; margin-top: 5px; display: block"
-            />
+            <div class="edit-name-container">
+              <input
+                type="text"
+                [(ngModel)]="equipo.nombre"
+                class="form-control form-control-sm mb-1"
+                placeholder="Nombre"
+              />
+              <input
+                type="text"
+                [(ngModel)]="equipo.escudo"
+                class="form-control form-control-sm"
+                placeholder="archivo.png"
+              />
+            </div>
             }
           </td>
+
           <td class="fw-bold">{{ equipo.puntos }}</td>
 
           <td>
@@ -59,9 +71,7 @@
               [(ngModel)]="equipo.partidosJugados"
               class="form-control form-control-sm input-corto"
             />
-            } @else {
-            {{ equipo.partidosJugados }}
-            }
+            } @else { {{ equipo.partidosJugados }} }
           </td>
 
           <td>
@@ -71,9 +81,7 @@
               [(ngModel)]="equipo.partidosGanados"
               class="form-control form-control-sm input-corto"
             />
-            } @else {
-            {{ equipo.partidosGanados }}
-            }
+            } @else { {{ equipo.partidosGanados }} }
           </td>
 
           <td>
@@ -83,9 +91,7 @@
               [(ngModel)]="equipo.partidosEmpatados"
               class="form-control form-control-sm input-corto"
             />
-            } @else {
-            {{ equipo.partidosEmpatados }}
-            }
+            } @else { {{ equipo.partidosEmpatados }} }
           </td>
 
           <td>
@@ -95,9 +101,7 @@
               [(ngModel)]="equipo.partidosPerdidos"
               class="form-control form-control-sm input-corto"
             />
-            } @else {
-            {{ equipo.partidosPerdidos }}
-            }
+            } @else { {{ equipo.partidosPerdidos }} }
           </td>
 
           <td>
@@ -107,9 +111,7 @@
               [(ngModel)]="equipo.golesFavor"
               class="form-control form-control-sm input-corto"
             />
-            } @else {
-            {{ equipo.golesFavor }}
-            }
+            } @else { {{ equipo.golesFavor }} }
           </td>
 
           <td>
@@ -119,17 +121,7 @@
               [(ngModel)]="equipo.golesContra"
               class="form-control form-control-sm input-corto"
             />
-            } @else {
-            {{ equipo.golesContra }}
-            }
-          </td>
-
-          <td>
-            <div class="forma-container">
-              @for (resultado of equipo.forma; track $index) {
-              <span class="badge" [ngClass]="getFormaClass(resultado)">{{ resultado }}</span>
-              }
-            </div>
+            } @else { {{ equipo.golesContra }} }
           </td>
 
           @if (modoEdicion) {
@@ -139,34 +131,23 @@
           }
         </tr>
         } @if (modoEdicion) {
-        <tr class="fila-creacion" style="background-color: #e8f8f5; border-top: 2px solid #2ecc71">
-          <td><span class="badge bg-success">+</span></td>
-
+        <tr class="table-active">
+          <td>#</td>
           <td>
             <input
               type="text"
               [(ngModel)]="nuevoEquipo.nombre"
-              placeholder="Nombre Equipo"
-              class="form-control form-control-sm"
-              style="min-width: 150px; margin-bottom: 5px"
+              class="form-control form-control-sm mb-1"
+              placeholder="Nuevo Equipo"
             />
             <input
               type="text"
               [(ngModel)]="nuevoEquipo.escudo"
-              placeholder="Ej: NuevoBoadilla.png"
               class="form-control form-control-sm"
-              style="min-width: 150px"
+              placeholder="escudo.png"
             />
           </td>
-
-          <td>
-            <input
-              type="number"
-              [(ngModel)]="nuevoEquipo.puntos"
-              class="form-control form-control-sm input-corto"
-              placeholder="PTS"
-            />
-          </td>
+          <td>-</td>
           <td>
             <input
               type="number"
@@ -215,9 +196,8 @@
               placeholder="GC"
             />
           </td>
-          <td>-</td>
           <td>
-            <button class="btn btn-sm btn-primary" (click)="crearEquipo()">➕</button>
+            <button class="btn btn-sm btn-primary" (click)="crearEquipo()">➕ Añadir</button>
           </td>
         </tr>
         }

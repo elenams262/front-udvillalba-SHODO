@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink, Router, NavigationEnd } from '@angular/router'; // Import Router
 import { ApiService } from './services/api.service';
 import { filter } from 'rxjs/operators';
+import { FooterComponent } from './footer/footer.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink],
+  imports: [CommonModule, RouterOutlet, RouterLink, FooterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

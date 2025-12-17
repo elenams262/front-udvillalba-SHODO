@@ -3,6 +3,9 @@ nav {
   background-color: white; /* Fondo blanco */
   padding: 0 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
 /* La lista (ul) */
@@ -52,7 +55,7 @@ nav ul li a:hover {
 /* Al usar position absolute y right 0, se coloca al final del contenedor UL */
 nav ul li:last-child {
   position: absolute;
-  right: 0;
+  right: 40px;
   /* Centrado vertical del contenedor li respecto al ul */
   display: flex;
   align-items: center; /* Esto centra verticalmente el botón dentro de los 40px */

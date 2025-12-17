@@ -1,10 +1,9 @@
 .player-card {
   width: 100%; /* Ocupa todo el ancho que le dé la rejilla (Grid) */
-  background: #fff;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
   display: flex;
@@ -13,7 +12,7 @@
 
 .player-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
 /* Contenedor de medios: Altura fija obligatoria */
@@ -25,7 +24,8 @@
   overflow: hidden;
 }
 
-.card-image, .card-video {
+.card-image,
+.card-video {
   width: 100%;
   height: 100%;
   object-fit: cover; /* Recorta la imagen para llenar el hueco sin deformarse */
