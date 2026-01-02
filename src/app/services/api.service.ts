@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { environment } from '../../enviroment.prod';
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  private apiUrl = 'https://backend-udvillalba.onrender.com/api';
+  private apiUrl = `${environment.apiUrl}/api`;
 
-  public readonly URL_IMAGENES = 'https://backend-udvillalba.onrender.com/uploads/';
+  public readonly URL_IMAGENES = `${environment.apiUrl}/uploads/`;
 
   constructor(private http: HttpClient) {}
 
