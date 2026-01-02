@@ -37,7 +37,7 @@
           },
           "configurations": {
             "production": {
-              "outputPath": "dist/frontend-udvillalba-OK/browser",
+              "outputPath": "dist/frontend-udvillalba-OK",
               "budgets": [
                 {
                   "type": "initial",
