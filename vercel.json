@@ -1,6 +1,6 @@
 {
   "version": 2,
   "rewrites": [
-    { "source": "/(.*)", "destination": "/browser/index.html" }
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
