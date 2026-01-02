@@ -76,4 +76,11 @@ export class ApiService {
   getProductos(): Observable<any> {
     return this.http.get(`${this.apiUrl}/productos`);
   }
+
+  // --- SUBIDA DE IMÁGENES ---
+  subirImagen(archivo: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('imagen', archivo); // 'imagen' es el nombre del campo que espera el backend (comúnmente)
+    return this.http.post(`${this.apiUrl}/upload`, formData, this.getHeaders());
+  }
 }

@@ -148,6 +148,27 @@ export class ClasificacionComponent implements OnInit {
     });
   }
 
+  onFileSelected(event: any, equipo: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.api.subirImagen(file).subscribe({
+        next: (response: any) => {
+          // Asumimos que el backend devuelve { filename: 'nombre_archivo.ext' }
+          if (response.filename) {
+            equipo.escudo = response.filename;
+            alert('✅ Escudo subido correctamente');
+          } else {
+            console.warn('Respuesta inesperada al subir imagen:', response);
+          }
+        },
+        error: (err) => {
+          console.error('Error al subir imagen:', err);
+          alert('❌ Error al subir el escudo');
+        },
+      });
+    }
+  }
+
   getClassForPosition(posicion: number): string {
     if (posicion <= 2) return 'ascenso-directo';
     else if (posicion <= 5) return 'playoff';
