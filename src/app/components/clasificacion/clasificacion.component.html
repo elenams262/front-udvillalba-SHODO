@@ -36,11 +36,7 @@
             @if (equipo.escudo) { @if (equipo.escudo.startsWith('http')) {
             <img [src]="equipo.escudo" alt="Escudo" class="escudo-img" />
             } @else {
-            <img
-              [src]="'http://localhost:5000/uploads/' + equipo.escudo"
-              alt="Escudo"
-              class="escudo-img"
-            />
+            <img [src]="api.URL_IMAGENES + equipo.escudo" alt="Escudo" class="escudo-img" />
             } }
 
             <span class="nombre-equipo">{{ equipo.nombre }}</span>
