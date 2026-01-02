@@ -6,9 +6,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ApiService {
-  private apiUrl = 'http://localhost:5000/api';
+  private apiUrl = 'https://backend-udvillalba.onrender.com/api';
 
-  public readonly URL_IMAGENES = 'http://localhost:5000/uploads/';
+  public readonly URL_IMAGENES = 'https://backend-udvillalba.onrender.com/uploads/';
 
   constructor(private http: HttpClient) {}
 
