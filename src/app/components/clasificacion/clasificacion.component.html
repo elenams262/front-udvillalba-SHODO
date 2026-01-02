@@ -33,33 +33,35 @@
           <td class="posicion">{{ equipo.posicion }}</td>
 
           <td class="equipo-col">
-            @if (equipo.escudo) { @if (equipo.escudo.startsWith('http')) {
-            <img [src]="equipo.escudo" alt="Escudo" class="escudo-img" />
-            } @else {
-            <img [src]="api.URL_IMAGENES + equipo.escudo" alt="Escudo" class="escudo-img" />
-            } }
+            <div class="d-flex align-items-center gap-2">
+              @if (equipo.escudo) { 
+                @if (equipo.escudo.startsWith('http')) {
+                  <img [src]="equipo.escudo" alt="Escudo" class="escudo-img" />
+                } @else {
+                  <img [src]="api.URL_IMAGENES + equipo.escudo" alt="Escudo" class="escudo-img" />
+                } 
+              }
 
-            <span class="nombre-equipo">{{ equipo.nombre }}</span>
+              @if (!modoEdicion) {
+                <span class="nombre-equipo">{{ equipo.nombre }}</span>
+              }
+            </div>
+
             @if (modoEdicion) {
-            <div class="edit-name-container">
+            <div class="edit-name-container mt-2">
               <input
                 type="text"
                 [(ngModel)]="equipo.nombre"
                 class="form-control form-control-sm mb-1"
-                placeholder="Nombre"
-              />
-              <input
-                type="text"
-                [(ngModel)]="equipo.escudo"
-                class="form-control form-control-sm"
-                placeholder="archivo.png"
+                placeholder="Nombre del equipo"
               />
               <input
                 type="file"
                 (change)="onFileSelected($event, equipo)"
-                class="form-control form-control-sm mt-1"
+                class="form-control form-control-sm"
                 accept="image/*"
               />
+              <small class="text-muted d-block mt-1">Archivo actual: {{ equipo.escudo }}</small>
             </div>
             }
           </td>
@@ -68,144 +70,77 @@
 
           <td>
             @if (modoEdicion) {
-            <input
-              type="number"
-              [(ngModel)]="equipo.partidosJugados"
-              class="form-control form-control-sm input-corto"
-            />
+            <input type="number" [(ngModel)]="equipo.partidosJugados" class="form-control form-control-sm input-corto" />
             } @else { {{ equipo.partidosJugados }} }
           </td>
 
           <td>
             @if (modoEdicion) {
-            <input
-              type="number"
-              [(ngModel)]="equipo.partidosGanados"
-              class="form-control form-control-sm input-corto"
-            />
+            <input type="number" [(ngModel)]="equipo.partidosGanados" class="form-control form-control-sm input-corto" />
             } @else { {{ equipo.partidosGanados }} }
           </td>
 
           <td>
             @if (modoEdicion) {
-            <input
-              type="number"
-              [(ngModel)]="equipo.partidosEmpatados"
-              class="form-control form-control-sm input-corto"
-            />
+            <input type="number" [(ngModel)]="equipo.partidosEmpatados" class="form-control form-control-sm input-corto" />
             } @else { {{ equipo.partidosEmpatados }} }
           </td>
 
           <td>
             @if (modoEdicion) {
-            <input
-              type="number"
-              [(ngModel)]="equipo.partidosPerdidos"
-              class="form-control form-control-sm input-corto"
-            />
+            <input type="number" [(ngModel)]="equipo.partidosPerdidos" class="form-control form-control-sm input-corto" />
             } @else { {{ equipo.partidosPerdidos }} }
           </td>
 
           <td>
             @if (modoEdicion) {
-            <input
-              type="number"
-              [(ngModel)]="equipo.golesFavor"
-              class="form-control form-control-sm input-corto"
-            />
+            <input type="number" [(ngModel)]="equipo.golesFavor" class="form-control form-control-sm input-corto" />
             } @else { {{ equipo.golesFavor }} }
           </td>
 
           <td>
             @if (modoEdicion) {
-            <input
-              type="number"
-              [(ngModel)]="equipo.golesContra"
-              class="form-control form-control-sm input-corto"
-            />
+            <input type="number" [(ngModel)]="equipo.golesContra" class="form-control form-control-sm input-corto" />
             } @else { {{ equipo.golesContra }} }
           </td>
 
           @if (modoEdicion) {
           <td>
-            <button class="btn btn-sm btn-success" (click)="guardarCambios(equipo)">💾</button>
+            <div class="d-flex gap-1">
+              <button class="btn btn-sm btn-success" (click)="guardarCambios(equipo)" title="Guardar">💾</button>
+              <button class="btn btn-sm btn-danger" (click)="eliminarEquipo(equipo._id!)" title="Eliminar">🗑️</button>
+            </div>
           </td>
           }
         </tr>
-        } @if (modoEdicion) {
-        <tr class="table-active">
+        } 
+
+        @if (modoEdicion) {
+        <tr class="table-info">
           <td>#</td>
           <td>
             <input
               type="text"
               [(ngModel)]="nuevoEquipo.nombre"
               class="form-control form-control-sm mb-1"
-              placeholder="Nuevo Equipo"
-            />
-            <input
-              type="text"
-              [(ngModel)]="nuevoEquipo.escudo"
-              class="form-control form-control-sm"
-              placeholder="escudo.png"
+              placeholder="Nombre nuevo equipo"
             />
             <input
               type="file"
               (change)="onFileSelected($event, nuevoEquipo)"
-              class="form-control form-control-sm mt-1"
+              class="form-control form-control-sm"
               accept="image/*"
             />
           </td>
           <td>-</td>
+          <td><input type="number" [(ngModel)]="nuevoEquipo.partidosJugados" class="form-control form-control-sm input-corto" placeholder="PJ" /></td>
+          <td><input type="number" [(ngModel)]="nuevoEquipo.partidosGanados" class="form-control form-control-sm input-corto" placeholder="PG" /></td>
+          <td><input type="number" [(ngModel)]="nuevoEquipo.partidosEmpatados" class="form-control form-control-sm input-corto" placeholder="PE" /></td>
+          <td><input type="number" [(ngModel)]="nuevoEquipo.partidosPerdidos" class="form-control form-control-sm input-corto" placeholder="PP" /></td>
+          <td><input type="number" [(ngModel)]="nuevoEquipo.golesFavor" class="form-control form-control-sm input-corto" placeholder="GF" /></td>
+          <td><input type="number" [(ngModel)]="nuevoEquipo.golesContra" class="form-control form-control-sm input-corto" placeholder="GC" /></td>
           <td>
-            <input
-              type="number"
-              [(ngModel)]="nuevoEquipo.partidosJugados"
-              class="form-control form-control-sm input-corto"
-              placeholder="PJ"
-            />
-          </td>
-          <td>
-            <input
-              type="number"
-              [(ngModel)]="nuevoEquipo.partidosGanados"
-              class="form-control form-control-sm input-corto"
-              placeholder="PG"
-            />
-          </td>
-          <td>
-            <input
-              type="number"
-              [(ngModel)]="nuevoEquipo.partidosEmpatados"
-              class="form-control form-control-sm input-corto"
-              placeholder="PE"
-            />
-          </td>
-          <td>
-            <input
-              type="number"
-              [(ngModel)]="nuevoEquipo.partidosPerdidos"
-              class="form-control form-control-sm input-corto"
-              placeholder="PP"
-            />
-          </td>
-          <td>
-            <input
-              type="number"
-              [(ngModel)]="nuevoEquipo.golesFavor"
-              class="form-control form-control-sm input-corto"
-              placeholder="GF"
-            />
-          </td>
-          <td>
-            <input
-              type="number"
-              [(ngModel)]="nuevoEquipo.golesContra"
-              class="form-control form-control-sm input-corto"
-              placeholder="GC"
-            />
-          </td>
-          <td>
-            <button class="btn btn-sm btn-primary" (click)="crearEquipo()">➕ Añadir</button>
+            <button class="btn btn-sm btn-primary w-100" (click)="crearEquipo()">➕ Añadir</button>
           </td>
         </tr>
         }
@@ -213,5 +148,3 @@
     </table>
   </div>
 </div>
-<!-- Fin de la Clasificación -->
-<!-- Fin de la Clasificación -->
