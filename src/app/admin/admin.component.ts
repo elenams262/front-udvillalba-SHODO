@@ -134,26 +134,22 @@ export class AdminComponent implements OnInit {
     this.equipoEditando = { ...equipo };
   }
 
-  guardarEquipo() {
-    if (this.equipoEditando._id) {
-      // ACTUALIZAR
-      this.apiService.actualizarEquipo(this.equipoEditando._id, this.equipoEditando).subscribe({
-        next: () => {
-          this.cargarEquipos();
-          this.equipoEditando = null;
-        },
-        error: (err) => alert('Error al actualizar equipo: ' + err.message),
-      });
-    } else {
-      // CREAR
-      this.apiService.crearEquipo(this.equipoEditando).subscribe({
-        next: () => {
-          this.cargarEquipos();
-          this.equipoEditando = null;
-        },
-        error: (err) => alert('Error al crear equipo: ' + err.message),
-      });
-    }
+  guardarTodosLosEquipos() {
+    // Usamos Promise.all para esperar a que todos se guarden
+    const updates = this.equipos.map((equipo) => {
+      // Solo actualizamos si tiene ID (por si añadieron uno nuevo sin guardar, aunque aquí asumimos que ya existen o se crean aparte)
+      if (equipo._id) {
+        return this.apiService.actualizarEquipo(equipo._id, equipo).toPromise();
+      }
+      return Promise.resolve();
+    });
+
+    Promise.all(updates)
+      .then(() => {
+        alert('Clasificación guardada correctamente');
+        this.cargarEquipos();
+      })
+      .catch((err) => alert('Error al guardar algunos equipos: ' + err.message));
   }
 
   eliminarEquipo(id: string) {
