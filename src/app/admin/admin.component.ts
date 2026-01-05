@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Para usar *ngFor y *ngIf
-import { ApiService } from '../../app/services/api.service';
-import { AuthService } from '../../app/services/auth.service';
+import { CommonModule } from '@angular/common';
+import { ApiService } from '../services/api.service'; // Asegúrate de que la ruta sea correcta
 
 @Component({
   selector: 'app-admin',
@@ -11,45 +10,41 @@ import { AuthService } from '../../app/services/auth.service';
   styleUrl: './admin.component.css',
 })
 export class AdminComponent implements OnInit {
-  // 1. DECLARACIÓN DE VARIABLES
   codigos: any[] = [];
-  esAdmin: boolean = false;
 
-  // 2. CONSTRUCTOR (Inyectamos los servicios)
-  constructor(private api: ApiService, private authService: AuthService) {}
+  // ✅ CORRECCIÓN 1: Inyectar el servicio en el constructor
+  constructor(private apiService: ApiService) {}
 
-  // 3. INICIO DEL COMPONENTE
   ngOnInit() {
-    this.esAdmin = this.authService.isAdmin();
-
-    // Solo cargamos los códigos si es admin, para evitar errores 403 en consola
-    if (this.esAdmin) {
+    if (this.esAdmin()) {
       this.cargarCodigos();
     }
   }
 
-  // 4. MÉTODOS DE LÓGICA
+  esAdmin(): boolean {
+    return localStorage.getItem('rol') === 'admin';
+  }
+
   cargarCodigos() {
-    this.api.getInviteCodes().subscribe({
-      next: (res: any) => {
-        this.codigos = res;
+    this.apiService.getInviteCodes().subscribe({
+      next: (data: any) => {
+        this.codigos = data;
+        console.log('Códigos cargados:', data);
       },
-      error: (err) => {
-        console.error('Error al cargar códigos:', err);
-      },
+      error: (err: any) => console.error('Error al cargar códigos', err),
     });
   }
 
+  // ✅ CORRECCIÓN 2: Eliminar la función duplicada y usar una sola
   generarNuevoCodigo() {
-    this.api.generateCode().subscribe({
-      next: (nuevo) => {
-        // .unshift lo pone al principio de la lista para que lo veas el primero
+    this.apiService.generateCode().subscribe({
+      next: (nuevo: any) => {
+        // .unshift lo pone al principio de la lista
         this.codigos.unshift(nuevo);
-        alert(`✅ Código generado con éxito: ${nuevo.code}`);
       },
-      error: (err) => {
-        console.error(err);
-        alert('❌ Error al generar el código. Revisa los permisos.');
+      error: (err: any) => {
+        console.error('Error al generar:', err);
+        alert('No se pudo generar el código');
       },
     });
   }

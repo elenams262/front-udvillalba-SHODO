@@ -1,4 +1,4 @@
-<div *ngIf="esAdmin" class="container mt-4">
+<div *ngIf="esAdmin()" class="container mt-4">
   <h2>Panel de Invitaciones</h2>
   <button class="btn btn-success mb-3" (click)="generarNuevoCodigo()">
     ➕ Generar Código de Registro
@@ -14,4 +14,8 @@
       </span>
     </li>
   </ul>
+</div>
+
+<div *ngIf="!esAdmin()" class="alert alert-danger mt-4">
+  No tienes permisos para acceder a esta sección.
 </div>
