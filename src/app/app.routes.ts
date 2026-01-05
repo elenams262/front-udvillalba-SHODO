@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
+import { AppComponent } from '../app/app.component';
 import { ProximoPartidoComponent } from './components/proximo-partido/proximo-partido.component';
 import { LoginComponent } from './auth/login.component';
 
@@ -15,7 +15,7 @@ export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 
   { path: 'login', component: LoginComponent },
-  { path: 'inicio', component: HomeComponent },
+  { path: 'inicio', component: AppComponent },
   { path: 'jornada', component: ProximoPartidoComponent },
 
   // ... resto de rutas (clasificacion, etc.) ...
