@@ -34,7 +34,7 @@ export class LoginComponent {
         localStorage.setItem('rol', res.rol);
         localStorage.setItem('nombre', res.nombre);
 
-        this.router.navigate(['/']);
+        this.router.navigate(['/inicio']);
       },
       error: (err) => {
         alert(err.error?.mensaje || 'Error al iniciar sesión');

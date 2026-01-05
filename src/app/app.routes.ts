@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { AppComponent } from '../app/app.component';
 import { ProximoPartidoComponent } from './components/proximo-partido/proximo-partido.component';
 import { LoginComponent } from './auth/login.component';
-
+import { AdminComponent } from './admin/admin.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { ClasificacionComponent } from './components/clasificacion/clasificacion.component';
 import { RegistroComponent } from './components/registro/registro.component';
@@ -16,6 +16,7 @@ export const routes: Routes = [
 
   { path: 'login', component: LoginComponent },
   { path: 'inicio', component: AppComponent },
+  { path: 'admin', component: AdminComponent },
   { path: 'jornada', component: ProximoPartidoComponent },
 
   // ... resto de rutas (clasificacion, etc.) ...
