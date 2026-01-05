@@ -134,6 +134,20 @@ export class AdminComponent implements OnInit {
     this.equipoEditando = { ...equipo };
   }
 
+  // Restauramos este método para usarlo SOLO al CREAR un equipo nuevo desde el formulario inferior
+  guardarEquipo() {
+    if (!this.equipoEditando._id) {
+      // CREAR
+      this.apiService.crearEquipo(this.equipoEditando).subscribe({
+        next: () => {
+          this.cargarEquipos();
+          this.equipoEditando = null;
+        },
+        error: (err) => alert('Error al crear equipo: ' + err.message),
+      });
+    }
+  }
+
   guardarTodosLosEquipos() {
     // Usamos Promise.all para esperar a que todos se guarden
     const updates = this.equipos.map((equipo) => {
