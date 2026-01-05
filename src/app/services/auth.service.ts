@@ -44,9 +44,9 @@ export class AuthService {
     );
   }
 
+  // En auth.service.ts
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem(this.userKey);
+    localStorage.clear();
     this.router.navigate(['/login']);
   }
 

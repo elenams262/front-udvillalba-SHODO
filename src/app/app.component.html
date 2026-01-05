@@ -17,7 +17,23 @@
     </li>
     <li><a routerLink="/menu" routerLinkActive="activo" (click)="cerrarMenu()">Menú</a></li>
     <li><a routerLink="/tienda" routerLinkActive="activo" (click)="cerrarMenu()">Tienda</a></li>
-    <li><a routerLink="/login" routerLinkActive="activo" (click)="cerrarMenu()">Login</a></li>
+
+    <li *ngIf="!estaLogueado()">
+      <a routerLink="/login" routerLinkActive="activo" (click)="cerrarMenu()">Login</a>
+    </li>
+
+    <li *ngIf="esAdmin()">
+      <a
+        routerLink="/admin"
+        routerLinkActive="activo"
+        (click)="cerrarMenu()"
+        class="nav-link admin-btn"
+        >Gestionar Invitaciones</a
+      >
+    </li>
+    <li *ngIf="estaLogueado()">
+      <a (click)="logout()" class="nav-link logout-btn" style="cursor: pointer">Cerrar Sesión</a>
+    </li>
   </ul>
 </nav>
 

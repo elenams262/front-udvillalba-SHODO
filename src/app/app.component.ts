@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet, RouterLink, Router, NavigationEnd } from '@angular/router'; // Import Router
+import { RouterOutlet, RouterLink, Router, NavigationEnd } from '@angular/router';
 import { ApiService } from './services/api.service';
 import { filter } from 'rxjs/operators';
 import { FooterComponent } from './footer/footer.component';
@@ -15,20 +15,16 @@ import { FooterComponent } from './footer/footer.component';
 export class AppComponent implements OnInit {
   title = 'frontend-futbol';
   partido: any = null;
-
-  // Tu variable para controlar el menú
   menuVisible: boolean = false;
 
   constructor(private api: ApiService, private router: Router) {}
 
   ngOnInit() {
-    // 1. Listen for route changes to toggle background blur
+    // Escuchar cambios de ruta para el modo auth
     this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe((event: any) => {
+      .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
         const url = event.urlAfterRedirects || event.url;
-
-        // If we are in login or register, add class to body
         if (url.includes('/login') || url.includes('/registro')) {
           document.body.classList.add('auth-mode');
         } else {
@@ -36,26 +32,37 @@ export class AppComponent implements OnInit {
         }
       });
 
-    // 2. Fetch data (existing logic)
+    // Cargar datos del próximo partido
     this.api.getProximoPartido().subscribe({
-      next: (data) => {
-        console.log('Datos recibidos:', data);
+      next: (data: any) => {
         this.partido = data;
       },
-      error: (err) => {
-        console.error('Error:', err);
+      error: (err: any) => {
+        console.error('Error cargando partido:', err);
       },
     });
   }
 
-  // --- FUNCIONES AÑADIDAS PARA EL MENÚ RESPONSIVE ---
+  // --- FUNCIONES DE AUTENTICACIÓN ---
+  esAdmin(): boolean {
+    return localStorage.getItem('rol') === 'admin';
+  }
 
-  // Alternar entre abierto y cerrado (para el botón hamburguesa)
+  estaLogueado(): boolean {
+    return !!localStorage.getItem('token');
+  }
+
+  logout() {
+    localStorage.clear();
+    this.cerrarMenu();
+    this.router.navigate(['/login']);
+  }
+
+  // --- FUNCIONES DEL MENÚ ---
   toggleMenu() {
     this.menuVisible = !this.menuVisible;
   }
 
-  // Cerrar explícitamente (para cuando haces clic en un enlace)
   cerrarMenu() {
     this.menuVisible = false;
   }

@@ -157,3 +157,17 @@ nav ul li:last-child a:hover {
     display: block;
   }
 }
+.admin-btn {
+  color: #ffcc00 !important; /* Dorado para el admin */
+  font-weight: bold;
+}
+
+.logout-btn {
+  color: #ff4d4d !important; /* Rojo para cerrar sesión */
+}
+
+/* Asegúrate de que los li dentro de ul hereden el estilo del menú móvil */
+ul.show li {
+  width: 100%;
+  text-align: center;
+}
