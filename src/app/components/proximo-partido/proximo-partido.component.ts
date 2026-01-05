@@ -67,29 +67,31 @@ export class ProximoPartidoComponent implements OnInit {
     this.modoEdicion = !this.modoEdicion;
   }
 
-  guardarCambios() {
-    // Si NO es nuevo y tenemos un ID, actualizamos
-    if (!this.esNuevo && this.partido._id) {
-      console.log('Actualizando partido existente...', this.partido._id);
+  // Dentro de proximo-partido.component.ts
 
-      this.api.actualizarPartido(this.partido._id, this.partido).subscribe({
-        next: (res: any) => {
-          // <-- Añadido ': any'
+  guardarCambios() {
+    if (!this.esNuevo && this.partido._id) {
+      // ✅ Limpiamos el objeto: enviamos solo lo que el modelo Match espera
+      const datosUpdate = {
+        jornada: this.partido.jornada,
+        equipoLocal: this.partido.equipoLocal,
+        equipoVisitante: this.partido.equipoVisitante,
+        ubicacion: this.partido.ubicacion,
+        fecha: this.partido.fecha,
+        hora: this.partido.hora,
+        isPlayed: this.partido.isPlayed || false,
+      };
+
+      this.api.actualizarPartido(this.partido._id, datosUpdate).subscribe({
+        next: () => {
           alert('✅ Partido actualizado correctamente');
           this.modoEdicion = false;
           this.cargarDatos();
         },
-        error: (err: any) => {
-          // <-- Añadido ': any'
-          console.error(err);
-          alert('❌ Error al actualizar');
-        },
+        error: (err) => alert('❌ Error al actualizar: ' + (err.error.msg || err.message)),
       });
-    }
-    // Si es nuevo (o no tiene ID), creamos uno
-    else {
-      console.log('Creando partido nuevo...');
-
+    } else {
+      // Lógica para crear nuevo (ya estaba bien)
       const nuevoPartido = {
         jornada: this.partido.jornada,
         equipoLocal: this.partido.partidoCasa ? 'UD Villalba' : this.partido.rival,
@@ -97,20 +99,16 @@ export class ProximoPartidoComponent implements OnInit {
         ubicacion: this.partido.ubicacion,
         fecha: this.partido.fecha,
         hora: this.partido.hora,
+        isPlayed: false,
       };
 
       this.api.crearPartido(nuevoPartido).subscribe({
-        next: (res: any) => {
-          // <-- Añadido ': any'
+        next: () => {
           alert('✅ Nuevo partido creado');
           this.modoEdicion = false;
           this.cargarDatos();
         },
-        error: (err: any) => {
-          // <-- Añadido ': any'
-          console.error(err);
-          alert('❌ Error al crear partido');
-        },
+        error: (err) => alert('❌ Error al crear partido'),
       });
     }
   }
