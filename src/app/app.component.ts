@@ -20,7 +20,6 @@ export class AppComponent implements OnInit {
   constructor(private api: ApiService, private router: Router) {}
 
   ngOnInit() {
-    // Escuchar cambios de ruta para el modo auth
     this.router.events
       .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
@@ -32,7 +31,6 @@ export class AppComponent implements OnInit {
         }
       });
 
-    // Cargar datos del próximo partido
     this.api.getProximoPartido().subscribe({
       next: (data: any) => {
         this.partido = data;
