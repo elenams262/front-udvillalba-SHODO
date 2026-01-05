@@ -28,7 +28,8 @@ export class LoginComponent {
     };
 
     this.authService.login(datosParaEnviar).subscribe({
-      next: (res) => {
+      next: (res: any) => {
+        localStorage.clear();
         // Almacenamos el token y redirigimos
         localStorage.setItem('token', res.token);
         localStorage.setItem('rol', res.rol);
@@ -36,7 +37,8 @@ export class LoginComponent {
 
         this.router.navigate(['/inicio']);
       },
-      error: (err) => {
+      error: (err: any) => {
+        console.log('Error en login', err);
         alert(err.error?.mensaje || 'Error al iniciar sesión');
       },
     });
