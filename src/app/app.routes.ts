@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AppComponent } from '../app/app.component';
+import { HomeComponent } from './components/home/home.component';
 import { ProximoPartidoComponent } from './components/proximo-partido/proximo-partido.component';
 import { LoginComponent } from './auth/login.component';
 import { AdminComponent } from './admin/admin.component';
@@ -15,7 +15,7 @@ export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 
   { path: 'login', component: LoginComponent },
-  { path: 'inicio', component: AppComponent },
+  { path: 'inicio', component: HomeComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'jornada', component: ProximoPartidoComponent },
 
