@@ -41,7 +41,6 @@ export class AppComponent implements OnInit {
     });
   }
 
-  // --- FUNCIONES DE AUTENTICACIÓN ---
   esAdmin(): boolean {
     return localStorage.getItem('rol') === 'admin';
   }
@@ -56,7 +55,6 @@ export class AppComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  // --- FUNCIONES DEL MENÚ ---
   toggleMenu() {
     this.menuVisible = !this.menuVisible;
   }
