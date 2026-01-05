@@ -83,4 +83,13 @@ export class ApiService {
     formData.append('imagen', archivo); // 'imagen' es el nombre del campo que espera el backend (comúnmente)
     return this.http.post(`${this.apiUrl}/upload`, formData, this.getHeaders());
   }
+  // En api.service.ts
+
+  getInviteCodes(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/auth/invite-codes`, this.getHeaders());
+  }
+
+  generateCode(): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/auth/invite-code`, {}, this.getHeaders());
+  }
 }

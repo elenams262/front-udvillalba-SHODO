@@ -1,16 +1,17 @@
-<h1>Para subir jugadoras</h1>
+<div *ngIf="esAdmin" class="container mt-4">
+  <h2>Panel de Invitaciones</h2>
+  <button class="btn btn-success mb-3" (click)="generarNuevoCodigo()">
+    ➕ Generar Código de Registro
+  </button>
 
-<form action="http://localhost:5000/jugadoras/multi" enctype="multipart/form-data" method="post">
-  <input type="file" name="jugadoras" id="jugadoras" multiple="true" />
-  <input type="submit" value="Enviar" />
-</form>
-<h1>Para subir escudos</h1>
-<form action="http://localhost:5000/escudos/multi" enctype="multipart/form-data" method="post">
-  <input type="file" name="escudos" id="escudos" multiple="true" />
-  <input type="submit" value="Enviar" />
-</form>
-<h1>Para subir otros archivos</h1>
-<form action="http://localhost:5000/otros/multi" enctype="multipart/form-data" method="post">
-  <input type="file" name="otros" id="otros" multiple="true" />
-  <input type="submit" value="Enviar" />
-</form>
+  <ul class="list-group">
+    <li *ngFor="let c of codigos" class="list-group-item d-flex justify-content-between">
+      <span
+        ><strong>{{ c.code }}</strong></span
+      >
+      <span [class.text-danger]="c.used" [class.text-success]="!c.used">
+        {{ c.used ? 'Ya usado' : 'Disponible' }}
+      </span>
+    </li>
+  </ul>
+</div>
