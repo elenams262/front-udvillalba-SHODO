@@ -1,21 +1,334 @@
 <div *ngIf="esAdmin()" class="container mt-4">
-  <h2>Panel de Invitaciones</h2>
-  <button class="btn btn-success mb-3" (click)="generarNuevoCodigo()">
-    ➕ Generar Código de Registro
-  </button>
+  <h2 class="mb-4 text-center">Panel de Administración</h2>
 
-  <ul class="list-group">
-    <li *ngFor="let c of codigos" class="list-group-item d-flex justify-content-between">
-      <span
-        ><strong>{{ c.code }}</strong></span
+  <!-- Menú de Navegación -->
+  <ul class="nav nav-pills mb-4 justify-content-center">
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        [class.active]="seccionActiva === 'invitaciones'"
+        (click)="seccionActiva = 'invitaciones'"
+        href="javascript:void(0)"
+        >Invitaciones</a
       >
-      <span [class.text-danger]="c.used" [class.text-success]="!c.used">
-        {{ c.used ? 'Ya usado' : 'Disponible' }}
-      </span>
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        [class.active]="seccionActiva === 'partidos'"
+        (click)="seccionActiva = 'partidos'"
+        href="javascript:void(0)"
+        >Jornada (Partidos)</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        [class.active]="seccionActiva === 'clasificacion'"
+        (click)="seccionActiva = 'clasificacion'"
+        href="javascript:void(0)"
+        >Clasificación</a
+      >
     </li>
   </ul>
+
+  <!-- SECCIÓN INVITACIONES -->
+  <div *ngIf="seccionActiva === 'invitaciones'">
+    <h3>Códigos de Registro</h3>
+    <button class="btn btn-success mb-3" (click)="generarNuevoCodigo()">➕ Generar Código</button>
+    <ul class="list-group">
+      <li
+        *ngFor="let c of codigos"
+        class="list-group-item d-flex justify-content-between align-items-center"
+      >
+        <span
+          ><strong>{{ c.code }}</strong></span
+        >
+        <span
+          [class.text-danger]="c.used"
+          [class.text-success]="!c.used"
+          class="badge rounded-pill bg-light text-dark border"
+        >
+          {{ c.used ? '🔴 Ya usado' : '🟢 Disponible' }}
+        </span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- SECCIÓN PARTIDOS -->
+  <div *ngIf="seccionActiva === 'partidos'">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h3>Lista de Partidos</h3>
+      <button class="btn btn-primary" (click)="nuevoPartido()">➕ Nuevo Partido</button>
+    </div>
+
+    <!-- Tabla Partidos -->
+    <div class="table-responsive" *ngIf="!partidoEditando">
+      <table class="table table-striped table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th>Fecha</th>
+            <th>Local</th>
+            <th>Visitante</th>
+            <th>Resultado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of partidos">
+            <td>{{ p.fecha | date : 'dd/MM/yyyy HH:mm' }}</td>
+            <td>{{ p.equipoLocal }}</td>
+            <td>{{ p.equipoVisitante }}</td>
+            <td>
+              <span *ngIf="p.isPlayed">{{ p.golesLocal }} - {{ p.golesVisitante }}</span>
+              <span *ngIf="!p.isPlayed" class="text-muted">No jugado</span>
+            </td>
+            <td>
+              <button class="btn btn-sm btn-warning me-2" (click)="editarPartido(p)">✏️</button>
+              <button class="btn btn-sm btn-danger" (click)="eliminarPartido(p._id)">🗑️</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Formulario Edición Partido -->
+    <div *ngIf="partidoEditando" class="card p-4 bg-light">
+      <h4>{{ partidoEditando._id ? 'Editar Partido' : 'Nuevo Partido' }}</h4>
+      <form (ngSubmit)="guardarPartido()">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label>Jornada (Título)</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="partidoEditando.jornada"
+              name="jornada"
+              required
+            />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Ubicación</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="partidoEditando.ubicacion"
+              name="ubicacion"
+              required
+            />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Equipo Local</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="partidoEditando.equipoLocal"
+              name="equipoLocal"
+              required
+            />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Equipo Visitante</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="partidoEditando.equipoVisitante"
+              name="equipoVisitante"
+              required
+            />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Fecha (YYYY-MM-DD)</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="partidoEditando.fecha"
+              name="fecha"
+              required
+            />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Hora</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="partidoEditando.hora"
+              name="hora"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="form-check mb-3">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            [(ngModel)]="partidoEditando.isPlayed"
+            name="isPlayed"
+            id="isPlayed"
+          />
+          <label class="form-check-label" for="isPlayed">Partido Jugado</label>
+        </div>
+
+        <div class="row" *ngIf="partidoEditando.isPlayed">
+          <div class="col-md-6 mb-3">
+            <label>Goles Local</label>
+            <input
+              type="number"
+              class="form-control"
+              [(ngModel)]="partidoEditando.golesLocal"
+              name="golesLocal"
+            />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Goles Visitante</label>
+            <input
+              type="number"
+              class="form-control"
+              [(ngModel)]="partidoEditando.golesVisitante"
+              name="golesVisitante"
+            />
+          </div>
+        </div>
+
+        <div class="mt-3">
+          <button type="submit" class="btn btn-success me-2">Guardar</button>
+          <button type="button" class="btn btn-secondary" (click)="partidoEditando = null">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- SECCIÓN CLASIFICACIÓN -->
+  <div *ngIf="seccionActiva === 'clasificacion'">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h3>Tabla de Clasificación</h3>
+      <button class="btn btn-primary" (click)="nuevoEquipo()">➕ Nuevo Equipo</button>
+    </div>
+
+    <!-- Tabla Equipos -->
+    <div class="table-responsive" *ngIf="!equipoEditando">
+      <table class="table table-striped table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th>Pos</th>
+            <th>Equipo</th>
+            <th>PJ</th>
+            <th>PG</th>
+            <th>PE</th>
+            <th>PP</th>
+            <th>GF</th>
+            <th>GC</th>
+            <th>Pts</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let e of equipos; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ e.equipo }}</td>
+            <td>{{ e.partidosJugados }}</td>
+            <td>{{ e.partidosGanados }}</td>
+            <td>{{ e.partidosEmpatados }}</td>
+            <td>{{ e.partidosPerdidos }}</td>
+            <td>{{ e.GF }}</td>
+            <td>{{ e.GC }}</td>
+            <td>
+              <strong>{{ e.puntos }}</strong>
+            </td>
+            <td>
+              <button class="btn btn-sm btn-warning me-2" (click)="editarEquipo(e)">✏️</button>
+              <button class="btn btn-sm btn-danger" (click)="eliminarEquipo(e._id)">🗑️</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Formulario Edición Equipo -->
+    <div *ngIf="equipoEditando" class="card p-4 bg-light">
+      <h4>{{ equipoEditando._id ? 'Editar Equipo' : 'Nuevo Equipo' }}</h4>
+      <form (ngSubmit)="guardarEquipo()">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label>Nombre Equipo</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="equipoEditando.equipo"
+              name="equipo"
+              required
+            />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>URL Escudo</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="equipoEditando.escudo"
+              name="escudo"
+              required
+            />
+          </div>
+          <div class="col-md-3 mb-3">
+            <label>PJ</label>
+            <input
+              type="number"
+              class="form-control"
+              [(ngModel)]="equipoEditando.partidosJugados"
+              name="partidosJugados"
+            />
+          </div>
+          <div class="col-md-3 mb-3">
+            <label>PG</label>
+            <input
+              type="number"
+              class="form-control"
+              [(ngModel)]="equipoEditando.partidosGanados"
+              name="partidosGanados"
+            />
+          </div>
+          <div class="col-md-3 mb-3">
+            <label>PE</label>
+            <input
+              type="number"
+              class="form-control"
+              [(ngModel)]="equipoEditando.partidosEmpatados"
+              name="partidosEmpatados"
+            />
+          </div>
+          <div class="col-md-3 mb-3">
+            <label>PP</label>
+            <input
+              type="number"
+              class="form-control"
+              [(ngModel)]="equipoEditando.partidosPerdidos"
+              name="partidosPerdidos"
+            />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Goles Favor (GF)</label>
+            <input type="number" class="form-control" [(ngModel)]="equipoEditando.GF" name="GF" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Goles Contra (GC)</label>
+            <input type="number" class="form-control" [(ngModel)]="equipoEditando.GC" name="GC" />
+          </div>
+        </div>
+
+        <div class="mt-3">
+          <button type="submit" class="btn btn-success me-2">Guardar</button>
+          <button type="button" class="btn btn-secondary" (click)="equipoEditando = null">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
 
-<div *ngIf="!esAdmin()" class="alert alert-danger mt-4">
+<div *ngIf="!esAdmin()" class="alert alert-danger mt-4 container">
   No tienes permisos para acceder a esta sección.
 </div>

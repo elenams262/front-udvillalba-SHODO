@@ -58,6 +58,10 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/jornada`);
   }
 
+  getAllMatches(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/jornada/all`);
+  }
+
   // ✅ ESTAS SON LAS QUE FALTABAN:
   crearPartido(partido: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/jornada`, partido, this.getHeaders());
