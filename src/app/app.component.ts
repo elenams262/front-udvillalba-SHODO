@@ -45,8 +45,8 @@ export class AppComponent implements OnInit {
 
   // --- FUNCIONES DE AUTENTICACIÓN ---
   esAdmin(): boolean {
-    // Probamos con ambos por si acaso: 'role' (DB) y 'rol' (lo que envía el login)
-    const role = localStorage.getItem('role') || localStorage.getItem('rol');
+    // Buscamos 'rol' (del login) o 'role' (por si acaso)
+    const role = localStorage.getItem('rol') || localStorage.getItem('role');
     return role === 'admin';
   }
 
