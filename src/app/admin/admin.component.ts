@@ -134,18 +134,44 @@ export class AdminComponent implements OnInit {
     this.equipoEditando = { ...equipo };
   }
 
+  // Guardar archivo seleccionado
+  selectedFile: File | null = null;
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+
   // Restauramos este método para usarlo SOLO al CREAR un equipo nuevo desde el formulario inferior
   guardarEquipo() {
     if (!this.equipoEditando._id) {
-      // CREAR
-      this.apiService.crearEquipo(this.equipoEditando).subscribe({
-        next: () => {
-          this.cargarEquipos();
-          this.equipoEditando = null;
-        },
-        error: (err) => alert('Error al crear equipo: ' + err.message),
-      });
+      // Si hay archivo, lo subimos primero
+      if (this.selectedFile) {
+        this.apiService.subirImagen(this.selectedFile).subscribe({
+          next: (response: any) => {
+            // La respuesta debe contener el nombre del archivo guardado
+            // Construimos la URL completa o guardamos el nombre según tu lógica
+            // Asumiendo que guardas la URL completa:
+            this.equipoEditando.escudo = this.apiService.URL_IMAGENES + response.filename;
+            this.crearEquipoFinal();
+          },
+          error: (err) => alert('Error al subir imagen: ' + err.message),
+        });
+      } else {
+        this.crearEquipoFinal();
+      }
     }
+  }
+
+  crearEquipoFinal() {
+    // CREAR
+    this.apiService.crearEquipo(this.equipoEditando).subscribe({
+      next: () => {
+        this.cargarEquipos();
+        this.equipoEditando = null;
+        this.selectedFile = null; // Resetear archivo
+      },
+      error: (err) => alert('Error al crear equipo: ' + err.message),
+    });
   }
 
   guardarTodosLosEquipos() {

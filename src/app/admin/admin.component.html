@@ -298,23 +298,37 @@
       <h5>Nuevo Equipo</h5>
       <form (ngSubmit)="guardarEquipo()">
         <!-- Dejé esta función para el botón 'add' si lo usas -->
-        <div class="d-flex gap-2">
-          <input
-            placeholder="Nombre"
-            [(ngModel)]="equipoEditando.equipo"
-            name="newTeamName"
-            class="form-control"
-          />
-          <input
-            placeholder="URL Escudo"
-            [(ngModel)]="equipoEditando.escudo"
-            name="newTeamLogo"
-            class="form-control"
-          />
-          <button type="submit" class="btn btn-success">Añadir</button>
-          <button type="button" class="btn btn-secondary" (click)="equipoEditando = null">
-            Cancelar
-          </button>
+        <div class="row align-items-center">
+          <div class="col-md-3">
+            <input
+              placeholder="Nombre"
+              [(ngModel)]="equipoEditando.equipo"
+              name="newTeamName"
+              class="form-control"
+            />
+          </div>
+          <div class="col-md-3">
+            <input
+              placeholder="URL Escudo"
+              [(ngModel)]="equipoEditando.escudo"
+              name="newTeamLogo"
+              class="form-control mb-2"
+            />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label small">O subir imagen:</label>
+            <input
+              type="file"
+              (change)="onFileSelected($event)"
+              class="form-control form-control-sm"
+            />
+          </div>
+          <div class="col-md-3">
+            <button type="submit" class="btn btn-success me-2">Añadir</button>
+            <button type="button" class="btn btn-secondary" (click)="equipoEditando = null">
+              Cancelar
+            </button>
+          </div>
         </div>
       </form>
     </div>
