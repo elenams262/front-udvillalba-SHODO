@@ -4,6 +4,31 @@
 
     <form (ngSubmit)="registrar()">
       <div class="form-group">
+        <label>Nombre de Usuario (para login)</label>
+        <input
+          type="text"
+          name="username"
+          [(ngModel)]="usuario.username"
+          placeholder="Ej: jugadora10"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Código de Invitación del Club</label>
+        <input
+          type="text"
+          name="codigoInvitacion"
+          [(ngModel)]="usuario.codigoInvitacion"
+          placeholder="Pide el código a tu entrenador"
+          required
+        />
+        <small class="info-text text-muted"
+          >Solo se permite el registro con un código válido otorgado por el club.</small
+        >
+      </div>
+
+      <div class="form-group">
         <label>Nombre</label>
         <input type="text" name="nombre" [(ngModel)]="usuario.nombre" required />
       </div>
@@ -14,18 +39,19 @@
       </div>
 
       <div class="form-group">
-        <label>Correo</label>
-        <input type="email" name="correo" [(ngModel)]="usuario.correo" required />
-      </div>
-
-      <div class="form-group">
         <label>Teléfono</label>
         <input type="tel" name="telefono" [(ngModel)]="usuario.telefono" required />
       </div>
 
       <div class="form-group">
         <label>Fecha de Nacimiento</label>
-        <input type="date" name="fechanacimiento" [(ngModel)]="usuario.fechanacimiento" required />
+        <input
+          type="text"
+          name="fechanacimiento"
+          [(ngModel)]="usuario.fechanacimiento"
+          placeholder="DD/MM/YYYY"
+          required
+        />
       </div>
 
       <div class="form-group">
@@ -35,8 +61,8 @@
 
       <button type="submit" class="btn-primary">Registrarse</button>
 
-      <div>
-        <button type="button" class="btn-primary" routerLink="/login">
+      <div class="auth-footer mt-3">
+        <button type="button" class="btn-secondary" routerLink="/login">
           Volver a Inicio de Sesión
         </button>
       </div>

@@ -2,51 +2,42 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-
-// CORRECCIÓN 1: Usamos '../' en lugar de '../../' porque estamos en 'app/auth'
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../app/services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  esModoLogin: boolean = true;
-
+  // CAMBIO: Ahora usamos username
   credenciales = {
-    correo: '',
+    username: '',
     password: '',
   };
 
-  mensajeError: string = '';
-
   constructor(private authService: AuthService, private router: Router) {}
 
-  cambiarModo() {
-    this.esModoLogin = !this.esModoLogin;
-  }
-
-  onEnviar() {
-    console.log('Intentando login...');
-
+  login() {
+    // Mapeamos password a contraseña antes de enviar si tu backend lo requiere así
     const datosParaEnviar = {
-      correo: this.credenciales.correo,
+      username: this.credenciales.username,
       contraseña: this.credenciales.password,
     };
 
     this.authService.login(datosParaEnviar).subscribe({
-      // CORRECCIÓN 2: Añadimos ': any' para evitar el error TS7006
-      next: (res: any) => {
-        console.log('Login exitoso. Usuario guardado.');
-        this.router.navigate(['/inicio']);
+      next: (res) => {
+        // Almacenamos el token y redirigimos
+        localStorage.setItem('token', res.token);
+        localStorage.setItem('rol', res.rol);
+        localStorage.setItem('nombre', res.nombre);
+
+        this.router.navigate(['/home']);
       },
-      // CORRECCIÓN 2: Añadimos ': any' aquí también
-      error: (err: any) => {
-        console.error('Error en login:', err);
-        this.mensajeError = 'Correo o contraseña incorrectos';
+      error: (err) => {
+        alert(err.error?.mensaje || 'Error al iniciar sesión');
       },
     });
   }

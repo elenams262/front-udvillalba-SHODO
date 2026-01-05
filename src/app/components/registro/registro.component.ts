@@ -12,40 +12,47 @@ import { ApiService } from '../../services/api.service';
   styleUrl: './registro.component.css',
 })
 export class RegistroComponent {
-  // CAMBIO: Usamos 'password' para evitar la ñ
+  // CAMPOS ACTUALIZADOS: Sin correo, con username y codigoInvitacion
   usuario = {
+    username: '', // Identificador para el login
     nombre: '',
     apellidos: '',
-    correo: '',
     telefono: '',
     fechanacimiento: '',
-    password: '',
+    password: '', // Se mapeará a 'contraseña' al enviar
+    codigoInvitacion: '', // Obligatorio para registrarse
   };
 
   constructor(private api: ApiService, private router: Router) {}
 
   registrar() {
-    // TRUCO: Preparamos los datos para el backend cambiando 'password' por 'contraseña'
-    const datosParaEnviar = {
-      ...this.usuario, // Copia todos los campos (nombre, correo, etc.)
-      contraseña: this.usuario.password, // Añade la contraseña con la ñ que quiere el backend
-    };
+    // Validación básica antes de enviar
+    if (!this.usuario.username || !this.usuario.codigoInvitacion || !this.usuario.password) {
+      alert('Por favor, rellena el nombre de usuario, la contraseña y el código de invitación.');
+      return;
+    }
 
-    // (Opcional) Quitamos el campo 'password' sobrante, aunque no molesta
-    // delete datosParaEnviar.password;
+    // Mapeo de datos para el backend
+    const datosParaEnviar = {
+      username: this.usuario.username,
+      nombre: this.usuario.nombre,
+      apellidos: this.usuario.apellidos,
+      telefono: this.usuario.telefono,
+      fechanacimiento: this.usuario.fechanacimiento,
+      contraseña: this.usuario.password, // Convertimos password -> contraseña con ñ
+      codigoInvitacion: this.usuario.codigoInvitacion, //
+    };
 
     this.api.registro(datosParaEnviar).subscribe({
       next: (res) => {
-        alert('¡Usuario creado con éxito! Por favor, inicia sesión.');
-
-        // No guardamos el token automáticamente para obligar a hacer login
-        // if (res.token) { localStorage.setItem('token', res.token); }
-
+        alert('¡Usuario registrado con éxito! Ya puedes iniciar sesión.');
         this.router.navigate(['/login']);
       },
       error: (err) => {
         console.error(err);
-        alert('Error al registrar.');
+        // Mostramos el mensaje específico del backend (ej: "Código inválido")
+        const mensajeError = err.error?.mensaje || 'Error al registrar el usuario.';
+        alert(mensajeError);
       },
     });
   }

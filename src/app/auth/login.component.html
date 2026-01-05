@@ -2,15 +2,15 @@
   <div class="auth-card">
     <h2>Iniciar Sesión</h2>
 
-    <form (ngSubmit)="onEnviar()">
+    <form (ngSubmit)="login()">
       <div class="form-group">
-        <label>Correo Electrónico</label>
+        <label>Nombre de Usuario</label>
         <input
-          type="email"
-          name="correo"
-          [(ngModel)]="credenciales.correo"
+          type="text"
+          name="username"
+          [(ngModel)]="credenciales.username"
           required
-          placeholder="tu@email.com"
+          placeholder="Tu nombre de usuario"
         />
       </div>
 
@@ -25,15 +25,10 @@
         />
       </div>
 
-      @if (mensajeError) {
-      <p class="error-msg">{{ mensajeError }}</p>
-      }
-
       <button type="submit" class="btn-primary">Entrar</button>
 
-      <div class="register-link">
-        <p>¿No tienes cuenta?</p>
-        <button type="button" class="btn-secondary" routerLink="/registro">Registrarse</button>
+      <div class="auth-footer mt-3">
+        <p>¿No tienes cuenta? <a routerLink="/registro">Regístrate con tu código</a></p>
       </div>
     </form>
   </div>
