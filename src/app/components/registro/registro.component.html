@@ -45,13 +45,7 @@
 
       <div class="form-group">
         <label>Fecha de Nacimiento</label>
-        <input
-          type="text"
-          name="fechanacimiento"
-          [(ngModel)]="usuario.fechanacimiento"
-          placeholder="DD/MM/YYYY"
-          required
-        />
+        <input type="date" name="fechanacimiento" [(ngModel)]="usuario.fechanacimiento" required />
       </div>
 
       <div class="form-group">
