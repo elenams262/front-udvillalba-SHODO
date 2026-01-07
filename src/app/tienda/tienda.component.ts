@@ -22,7 +22,7 @@ interface Producto {
 export class TiendaComponent implements OnInit {
   productos: Producto[] = [];
   cargando: boolean = true;
-  productoAgregadoId: string | null = null; // Para mostrar feedback
+  productoAgregadoId: string | null = null;
 
   constructor(public api: ApiService, private cart: CartService, private cd: ChangeDetectorRef) {}
 
@@ -35,11 +35,11 @@ export class TiendaComponent implements OnInit {
       next: (data) => {
         this.productos = data;
         this.cargando = false;
-        this.cd.detectChanges(); // Forzar actualización de vista
+        this.cd.detectChanges();
       },
       error: (err) => {
         console.error('Error cargando productos:', err);
-        // Datos de ejemplo por si falla el backend
+
         this.productos = [
           {
             _id: '1',
@@ -64,7 +64,7 @@ export class TiendaComponent implements OnInit {
           },
         ];
         this.cargando = false;
-        this.cd.detectChanges(); // Forzar actualización de vista
+        this.cd.detectChanges();
       },
     });
   }

@@ -1,7 +1,7 @@
 .tienda-container {
   max-width: 1200px;
   margin: 0 auto;
-  margin-top: 100px; /* Separación del navbar */
+  margin-top: 100px; 
   padding: 2rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -15,20 +15,13 @@
   font-size: 2.5rem;
   font-weight: 800;
   text-transform: uppercase;
-  color: white; /* Consistente con el resto de la app */
-  /* El subrayado viene de styles.css global */
+  color: white; 
+  
 }
 
 .header-section p {
-  color: #666; /* O blanco si el fondo es oscuro, pero el fondo es imagen */
-  /* Wait, the background is an image. Dark text might be invisible.
-     Let's check menu/home. Menu has dark text on white table bg, but header?
-     In Home, h2 is white.
-     Let's stick to white or verify background.
-     Global background is an image. So text should be readable.
-     Global styles sets h2 to white.
-     Let's make p white too and give it a shadow.
-  */
+  color: #666; 
+  
   color: white;
   font-size: 1.2rem;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
@@ -68,7 +61,7 @@
 .img-container img {
   max-width: 100%;
   max-height: 100%;
-  object-fit: contain; /* Para ver el producto entero sin recortar */
+  object-fit: contain; 
   transition: transform 0.3s ease;
 }
 
@@ -80,7 +73,7 @@
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  flex-grow: 1; /* Para que ocupen igual altura */
+  flex-grow: 1; 
 }
 
 .info-container h3 {
@@ -101,7 +94,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: auto; /* Empuja al fondo */
+  margin-top: auto; 
 }
 
 .precio {
@@ -132,7 +125,7 @@
   text-shadow: 1px 1px 2px black;
 }
 
-/* Feedback Añadido */
+
 .added-feedback {
   display: flex;
   flex-direction: column;

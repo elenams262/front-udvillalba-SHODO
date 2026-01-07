@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // Importar FormsModule
+import { FormsModule } from '@angular/forms';
 import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [CommonModule, FormsModule], // Añadir FormsModule
+  imports: [CommonModule, FormsModule],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.css',
 })
@@ -15,7 +15,7 @@ export class AdminComponent implements OnInit {
   partidos: any[] = [];
   equipos: any[] = [];
 
-  // Estado para formularios
+
   seccionActiva: 'invitaciones' | 'partidos' | 'clasificacion' = 'invitaciones';
   partidoEditando: any = null;
   equipoEditando: any = null;
@@ -34,7 +34,7 @@ export class AdminComponent implements OnInit {
     return localStorage.getItem('rol') === 'admin';
   }
 
-  // --- INVITACIONES ---
+
   cargarCodigos() {
     this.apiService.getInviteCodes().subscribe({
       next: (data: any) => (this.codigos = data),
@@ -49,7 +49,7 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  // --- PARTIDOS (JORNADA) ---
+
   cargarPartidos() {
     this.apiService.getAllMatches().subscribe({
       next: (data: any[]) => (this.partidos = data),
@@ -74,13 +74,13 @@ export class AdminComponent implements OnInit {
   }
 
   editarPartido(partido: any) {
-    // Clonamos para no editar directamente en la tabla hasta guardar
+
     this.partidoEditando = { ...partido };
   }
 
   guardarPartido() {
     if (this.partidoEditando._id) {
-      // ACTUALIZAR
+
       this.apiService.actualizarPartido(this.partidoEditando._id, this.partidoEditando).subscribe({
         next: () => {
           this.cargarPartidos();
@@ -89,7 +89,7 @@ export class AdminComponent implements OnInit {
         error: (err) => alert('Error al actualizar partido: ' + err.message),
       });
     } else {
-      // CREAR
+
       this.apiService.crearPartido(this.partidoEditando).subscribe({
         next: () => {
           this.cargarPartidos();
@@ -109,7 +109,7 @@ export class AdminComponent implements OnInit {
     }
   }
 
-  // --- CLASIFICACIÓN (EQUIPOS) ---
+
   cargarEquipos() {
     this.apiService.getClasificacion().subscribe({
       next: (data: any[]) => (this.equipos = data),
@@ -134,23 +134,23 @@ export class AdminComponent implements OnInit {
     this.equipoEditando = { ...equipo };
   }
 
-  // Guardar archivo seleccionado
+
   selectedFile: File | null = null;
 
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
   }
 
-  // Restauramos este método para usarlo SOLO al CREAR un equipo nuevo desde el formulario inferior
+
   guardarEquipo() {
     if (!this.equipoEditando._id) {
-      // Si hay archivo, lo subimos primero
+
       if (this.selectedFile) {
         this.apiService.subirImagen(this.selectedFile).subscribe({
           next: (response: any) => {
-            // La respuesta debe contener el nombre del archivo guardado
-            // Construimos la URL completa o guardamos el nombre según tu lógica
-            // Asumiendo que guardas la URL completa:
+
+
+
             this.equipoEditando.escudo = this.apiService.URL_IMAGENES + response.filename;
             this.crearEquipoFinal();
           },
@@ -163,21 +163,21 @@ export class AdminComponent implements OnInit {
   }
 
   crearEquipoFinal() {
-    // CREAR
+
     this.apiService.crearEquipo(this.equipoEditando).subscribe({
       next: () => {
         this.cargarEquipos();
         this.equipoEditando = null;
-        this.selectedFile = null; // Resetear archivo
+        this.selectedFile = null;
       },
       error: (err) => alert('Error al crear equipo: ' + err.message),
     });
   }
 
   guardarTodosLosEquipos() {
-    // Usamos Promise.all para esperar a que todos se guarden
+
     const updates = this.equipos.map((equipo) => {
-      // Solo actualizamos si tiene ID (por si añadieron uno nuevo sin guardar, aunque aquí asumimos que ya existen o se crean aparte)
+
       if (equipo._id) {
         return this.apiService.actualizarEquipo(equipo._id, equipo).toPromise();
       }

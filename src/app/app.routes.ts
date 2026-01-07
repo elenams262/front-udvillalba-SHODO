@@ -11,7 +11,7 @@ import { TiendaComponent } from './tienda/tienda.component';
 import { CarritoComponent } from './components/carrito/carrito.component';
 
 export const routes: Routes = [
-  // CAMBIO AQUÍ: Ahora redirige a 'login' en vez de a 'inicio'
+
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 
   { path: 'login', component: LoginComponent },
@@ -19,7 +19,7 @@ export const routes: Routes = [
   { path: 'admin', component: AdminComponent },
   { path: 'jornada', component: ProximoPartidoComponent },
 
-  // ... resto de rutas (clasificacion, etc.) ...
+
   { path: 'clasificacion', component: ClasificacionComponent },
   { path: 'menu', component: MenuComponent },
   { path: 'entrenamientos', component: EntrenamientosComponent },

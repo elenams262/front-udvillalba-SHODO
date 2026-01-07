@@ -39,7 +39,7 @@ export class ProximoPartidoComponent implements OnInit {
   cargarDatos() {
     this.api.getProximoPartido().subscribe({
       next: (data: any) => {
-        // Manejar si el backend devuelve un array o un objeto único
+
         const datos = Array.isArray(data) ? data[0] : data;
 
         if (datos && Object.keys(datos).length > 0) {
@@ -49,13 +49,13 @@ export class ProximoPartidoComponent implements OnInit {
         } else {
           console.log('⚠️ No hay partidos próximos.');
           this.esNuevo = true;
-          this.partido = null; // IMPORTANTE: Null para que salga el bloque @else (botón crear)
+          this.partido = null;
         }
         this.cd.detectChanges();
       },
       error: (err: any) => {
         console.error('❌ Error cargando partido:', err);
-        // Si falla (ej: 404), asumimos que no hay
+
         this.esNuevo = true;
         this.partido = null;
         this.cd.detectChanges();
@@ -67,11 +67,11 @@ export class ProximoPartidoComponent implements OnInit {
     this.modoEdicion = !this.modoEdicion;
   }
 
-  // Dentro de proximo-partido.component.ts
+
 
   guardarCambios() {
     if (!this.esNuevo && this.partido._id) {
-      // ✅ Limpiamos el objeto: enviamos solo lo que el modelo Match espera
+
       const datosUpdate = {
         jornada: this.partido.jornada,
         equipoLocal: this.partido.equipoLocal,
@@ -91,7 +91,7 @@ export class ProximoPartidoComponent implements OnInit {
         error: (err) => alert('❌ Error al actualizar: ' + (err.error.msg || err.message)),
       });
     } else {
-      // Lógica para crear nuevo (ya estaba bien)
+
       const nuevoPartido = {
         jornada: this.partido.jornada,
         equipoLocal: this.partido.partidoCasa ? 'UD Villalba' : this.partido.rival,
@@ -119,8 +119,8 @@ export class ProximoPartidoComponent implements OnInit {
       this.api.eliminarPartido(this.partido._id).subscribe({
         next: () => {
           alert('🗑️ Partido eliminado.');
-          this.partido = null; // Limpiamos la vista
-          this.cargarDatos(); // Recargamos para ver si hay otro partido (el nuevo)
+          this.partido = null;
+          this.cargarDatos();
         },
         error: (err: any) => {
           console.error(err);

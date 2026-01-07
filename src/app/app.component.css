@@ -1,33 +1,33 @@
-/* src/app/app.component.css */
 
-/* --- BARRA DE NAVEGACIÓN (PC) --- */
+
+
 nav {
   background-color: white;
   padding: 0 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  position: fixed; /* Fijo arriba */
+  position: fixed; 
   top: 0;
   left: 0;
   width: 100%;
-  height: 100px; /* Altura fija */
-  z-index: 1000; /* Siempre encima de todo */
+  height: 100px; 
+  z-index: 1000; 
   display: flex;
   align-items: center;
-  justify-content: center; /* Centramos el contenido principal */
-  box-sizing: border-box; /* Para que el padding no rompa el ancho */
+  justify-content: center; 
+  box-sizing: border-box; 
 }
 
-/* LOGO: Posicionado a la izquierda de forma absoluta */
+
 .logo-container {
   position: absolute;
   left: 30px;
   top: 50%;
-  transform: translateY(-50%); /* Centrado vertical perfecto */
+  transform: translateY(-50%); 
   display: flex;
 }
 
 .logo-container img {
-  height: 80px; /* Tamaño del logo */
+  height: 80px; 
   width: auto;
   transition: transform 0.3s;
 }
@@ -36,7 +36,7 @@ nav {
   transform: scale(1.1);
 }
 
-/* LISTA DE ENLACES (Menú Central) */
+
 nav ul {
   list-style: none;
   margin: 0;
@@ -60,11 +60,11 @@ nav ul li a {
 
 nav ul li a:hover,
 nav ul li a.activo {
-  color: #27ae60; /* Verde corporativo */
+  color: #27ae60; 
 }
 
-/* BOTÓN DE LOGIN (El último elemento li) */
-/* Lo sacamos del flujo normal y lo pegamos a la derecha */
+
+
 nav ul li:last-child {
   position: absolute;
   right: 30px;
@@ -72,10 +72,10 @@ nav ul li:last-child {
   transform: translateY(-50%);
 }
 
-/* Estilo del botón verde */
+
 nav ul li:last-child a {
   background-color: #27ae60;
-  color: white !important; /* Texto blanco forzado */
+  color: white !important; 
   padding: 8px 25px;
   border-radius: 20px;
   box-shadow: 0 4px 6px rgba(39, 174, 96, 0.2);
@@ -86,20 +86,20 @@ nav ul li:last-child a:hover {
   transform: translateY(-2px);
 }
 
-/* HAMBURGUESA (Oculta en PC) */
+
 .hamburger-btn {
   display: none;
 }
 
-/* --- RESPONSIVE: MÓVIL Y TABLET (Menos de 768px) --- */
+
 @media (max-width: 768px) {
   nav {
-    justify-content: space-between; /* Separar Logo y Hamburguesa */
-    height: 80px; /* Un poco más bajito en móvil */
+    justify-content: space-between; 
+    height: 80px; 
   }
 
   .logo-container {
-    position: static; /* Ya no es absoluto en móvil */
+    position: static; 
     transform: none;
   }
 
@@ -107,7 +107,7 @@ nav ul li:last-child a:hover {
     height: 60px;
   }
 
-  /* Mostrar botón hamburguesa */
+  
   .hamburger-btn {
     display: block;
     background: none;
@@ -117,22 +117,22 @@ nav ul li:last-child a:hover {
     cursor: pointer;
   }
 
-  /* El menú desplegable */
+  
   nav ul {
     position: fixed;
-    top: 80px; /* Debajo del nav */
+    top: 80px; 
     left: 0;
     width: 100%;
     height: calc(100vh - 80px);
     background-color: white;
-    flex-direction: column; /* Vertical */
+    flex-direction: column; 
     justify-content: flex-start;
     padding-top: 40px;
-    transform: translateX(100%); /* Oculto a la derecha */
+    transform: translateX(100%); 
     transition: transform 0.3s ease-in-out;
   }
 
-  /* Clase para mostrar el menú */
+  
   nav ul.show {
     transform: translateX(0);
   }
@@ -143,7 +143,7 @@ nav ul li:last-child a:hover {
     text-align: center;
   }
 
-  /* Resetear el botón de login en móvil para que sea uno más de la lista */
+  
   nav ul li:last-child {
     position: static;
     right: auto;
@@ -158,15 +158,15 @@ nav ul li:last-child a:hover {
   }
 }
 .admin-btn {
-  color: #ffcc00 !important; /* Dorado para el admin */
+  color: #ffcc00 !important; 
   font-weight: bold;
 }
 
 .logout-btn {
-  color: #ff4d4d !important; /* Rojo para cerrar sesión */
+  color: #ff4d4d !important; 
 }
 
-/* Asegúrate de que los li dentro de ul hereden el estilo del menú móvil */
+
 ul.show li {
   width: 100%;
   text-align: center;

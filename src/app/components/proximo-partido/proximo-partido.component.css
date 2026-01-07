@@ -1,4 +1,4 @@
-/* Contenedor principal para centrar la tarjeta */
+
 .container-center {
   display: flex;
   justify-content: center;
@@ -7,14 +7,14 @@
   width: 100%;
   margin-top: 50px;
 
-  /* --- CORRECCIÓN AQUÍ --- */
-  /* El menú mide unos 80-100px, así que empujamos 140px para que se vea bien */
+  
+  
   padding-top: 100px;
-  min-height: 100vh; /* Para que ocupe al menos toda la pantalla */
+  min-height: 100vh; 
   box-sizing: border-box;
 }
 
-/* --- TARJETA DEL PARTIDO --- */
+
 .match-card {
   background-color: white;
   border: 1px solid #e0e0e0;
@@ -22,8 +22,8 @@
   padding: 30px;
   display: inline-block;
   min-width: 320px;
-  max-width: 500px; /* Límite de ancho para que no se vea gigante en PC */
-  width: 100%; /* En móvil ocupa todo el ancho disponible */
+  max-width: 500px; 
+  width: 100%; 
 
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
@@ -33,13 +33,13 @@
   transform: translateY(-5px);
 }
 
-/* Títulos dentro de la tarjeta */
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  flex-wrap: wrap; /* Para que en móvil los botones bajen si no caben */
+  flex-wrap: wrap; 
   gap: 10px;
 }
 
@@ -49,24 +49,24 @@
   color: #2c3e50;
 }
 
-/* Botones de admin */
+
 .admin-buttons {
   display: flex;
   gap: 10px;
 }
 
-/* --- RESPONSIVE FIX (Añadido extra por seguridad) --- */
+
 @media (max-width: 768px) {
   .container-center {
-    padding-top: 200px; /* En móvil el menú es un poco distinto, ajustamos */
+    padding-top: 200px; 
   }
 
   .match-card {
-    padding: 15px; /* Menos relleno en móvil */
+    padding: 15px; 
   }
 }
 
-/* ... Resto de tus estilos (match-details, status-home, etc.) déjalos igual ... */
+
 .match-details {
   font-size: 1.1rem;
   line-height: 1.8;

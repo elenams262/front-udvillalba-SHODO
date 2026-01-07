@@ -7,8 +7,8 @@ import { AuthService } from '../../services/auth.service';
 export interface Equipo {
   _id?: string;
   posicion: number;
-  escudo: string; // Nombre del archivo (ej: villalba.png)
-  nombre: string; // (En la BBDD se llama 'equipo')
+  escudo: string;
+  nombre: string;
   puntos: number;
   partidosJugados: number;
   partidosGanados: number;
@@ -30,7 +30,7 @@ export class ClasificacionComponent implements OnInit {
   esAdmin: boolean = false;
   modoEdicion: boolean = false;
 
-  // Objeto inicial para crear nuevos equipos
+
   nuevoEquipo: Equipo = {
     posicion: 0,
     escudo: '',
@@ -45,7 +45,7 @@ export class ClasificacionComponent implements OnInit {
   };
 
   constructor(
-    public api: ApiService, // public para acceder desde el HTML
+    public api: ApiService,
     private authService: AuthService,
     private cd: ChangeDetectorRef
   ) {}
@@ -58,13 +58,13 @@ export class ClasificacionComponent implements OnInit {
   cargarDatos() {
     this.api.getClasificacion().subscribe({
       next: (data: any[]) => {
-        // Mapeamos los datos del backend (que usa 'equipo') a nuestro interface (que usa 'nombre')
-        // El index + 1 nos da la posición real basada en el orden que ya trae el backend
+
+
         this.clasificacion = data.map((item, index) => ({
           _id: item._id,
           posicion: index + 1,
           escudo: item.escudo || '',
-          nombre: item.equipo, // Ajuste de nombre de campo
+          nombre: item.equipo,
           puntos: item.puntos,
           partidosJugados: item.partidosJugados,
           partidosGanados: item.partidosGanados,
@@ -81,17 +81,17 @@ export class ClasificacionComponent implements OnInit {
 
   toggleEdicion() {
     this.modoEdicion = !this.modoEdicion;
-    // Si cerramos el modo edición, recargamos datos para limpiar cambios no guardados
+
     if (!this.modoEdicion) {
       this.cargarDatos();
     }
   }
 
-  // --- ACTUALIZAR UN EQUIPO EXISTENTE ---
+
   guardarCambios(equipo: Equipo) {
     if (!equipo._id) return;
 
-    // Preparamos el objeto tal cual lo espera el esquema de Mongoose (Equipos.js)
+
     const datosBackend = {
       equipo: equipo.nombre,
       escudo: equipo.escudo,
@@ -106,7 +106,7 @@ export class ClasificacionComponent implements OnInit {
     this.api.actualizarEquipo(equipo._id, datosBackend).subscribe({
       next: () => {
         alert('✅ Equipo "' + equipo.nombre + '" actualizado');
-        this.cargarDatos(); // Recargamos para que se reordene por puntos
+        this.cargarDatos();
       },
       error: (err) => {
         console.error(err);
@@ -115,7 +115,7 @@ export class ClasificacionComponent implements OnInit {
     });
   }
 
-  // --- CREAR UN EQUIPO NUEVO ---
+
   crearEquipo() {
     if (!this.nuevoEquipo.nombre) {
       alert('Debes indicar el nombre del equipo');
@@ -146,7 +146,7 @@ export class ClasificacionComponent implements OnInit {
     });
   }
 
-  // --- ELIMINAR EQUIPO ---
+
   eliminarEquipo(id: string) {
     if (confirm('⚠️ ¿Estás seguro de que quieres eliminar este equipo?')) {
       this.api.eliminarEquipo(id).subscribe({
@@ -159,7 +159,7 @@ export class ClasificacionComponent implements OnInit {
     }
   }
 
-  // --- MANEJO DE IMÁGENES ---
+
   onFileSelected(event: any, equipo: any) {
     const file: File = event.target.files[0];
     if (file) {

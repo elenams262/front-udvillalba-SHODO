@@ -1,9 +1,9 @@
-/* Estilos Premium para la Clasificación */
+
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  /* CORRECCIÓN: Margen amplio para evitar que el navbar tape el contenido en PC */
+  
   margin-top: 100px;
   margin-bottom: 2rem;
   padding: 2rem;
@@ -12,7 +12,7 @@
   align-items: center;
 }
 
-/* Cabecera con Título y Botón */
+
 .header-section {
   width: 100%;
   display: flex;
@@ -29,10 +29,10 @@
   text-align: center;
   margin-bottom: 1rem;
   color: #ffffff;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Color añadido para asegurar visibilidad */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
 }
 
-/* Botón flotante */
+
 .header-section .btn {
   position: relative;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -44,11 +44,11 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Contenedor de la Tabla con estilo "Carta" */
+
 .table-responsive {
-  width: 100%; /* CORRECCIÓN: Usar 100% en lugar de px fijos para mejor adaptación */
+  width: 100%; 
   max-width: 1500px;
-  overflow-x: auto; /* Scroll lateral automático */
+  overflow-x: auto; 
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   background: white;
@@ -59,10 +59,10 @@
   margin-bottom: 0;
   width: 100%;
   border-collapse: collapse;
-  min-width: 800px; /* Asegura que la tabla no se aplaste demasiado en móvil */
+  min-width: 800px; 
 }
 
-/* Cabecera de la Tabla */
+
 .table thead th {
   background: #2c3e50;
   color: white;
@@ -83,7 +83,7 @@
   color: #333;
 }
 
-/* Filas */
+
 .table tbody tr {
   transition: background-color 0.2s ease;
 }
@@ -92,7 +92,7 @@
   background-color: #f8f9fa;
 }
 
-/* Columnas Específicas */
+
 .posicion {
   font-weight: bold;
   font-size: 1.1rem;
@@ -106,7 +106,7 @@
   align-items: center;
   font-weight: 600;
   color: #2c3e50;
-  min-width: 200px; /* Espacio mínimo para el nombre */
+  min-width: 200px; 
 }
 
 .escudo-img {
@@ -121,7 +121,7 @@
   font-size: 1rem;
 }
 
-/* Inputs de edición */
+
 .input-corto {
   width: 55px;
   text-align: center;
@@ -137,7 +137,7 @@
   box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
 }
 
-/* Estado de clasificación (Colores laterales) */
+
 .ascenso-directo {
   background: linear-gradient(90deg, rgba(46, 204, 113, 0.1) 0%, transparent 100%);
   border-left: 5px solid #2ecc71;
@@ -153,7 +153,7 @@
   border-left: 5px solid #e74c3c;
 }
 
-/* Badges de Forma */
+
 .forma-container {
   display: flex;
   gap: 4px;
@@ -185,11 +185,11 @@
   background-color: #95a5a6;
 }
 
-/* --- RESPONSIVE --- */
+
 @media (max-width: 768px) {
   .container {
     padding: 10px;
-    /* CORRECCIÓN IMPORTANTE: Aumentamos margen en móvil para que el menú no tape la tabla */
+    
     margin-top: 130px;
     width: 100%;
   }
@@ -205,19 +205,19 @@
     font-size: 1.8rem;
   }
 
-  /* Tabla Responsive con Scroll */
+  
   .table-responsive {
     display: block;
     width: 100%;
-    overflow-x: auto; /* Permite deslizar */
+    overflow-x: auto; 
     -webkit-overflow-scrolling: touch;
   }
 
-  /* Texto un poco más pequeño en móvil */
+  
   .table td,
   .table th {
     font-size: 0.85rem;
-    padding: 10px 5px; /* Menos padding horizontal */
+    padding: 10px 5px; 
   }
 
   .escudo-img {
@@ -227,7 +227,7 @@
   }
 }
 
-/* Botón flotante */
+
 .header-section .btn {
   position: relative;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -239,11 +239,11 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Contenedor de la Tabla con estilo "Carta" */
+
 .table-responsive {
-  width: 100%; /* CORRECCIÓN: Usar 100% en lugar de px fijos para mejor adaptación */
+  width: 100%; 
   max-width: 1500px;
-  overflow-x: auto; /* Scroll lateral automático */
+  overflow-x: auto; 
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   background: white;
@@ -254,10 +254,10 @@
   margin-bottom: 0;
   width: 100%;
   border-collapse: collapse;
-  min-width: 800px; /* Asegura que la tabla no se aplaste demasiado en móvil */
+  min-width: 800px; 
 }
 
-/* Cabecera de la Tabla */
+
 .table thead th {
   background: #2c3e50;
   color: white;
@@ -278,7 +278,7 @@
   color: #333;
 }
 
-/* Filas */
+
 .table tbody tr {
   transition: background-color 0.2s ease;
 }
@@ -287,7 +287,7 @@
   background-color: #f8f9fa;
 }
 
-/* Columnas Específicas */
+
 .posicion {
   font-weight: bold;
   font-size: 1.1rem;
@@ -301,7 +301,7 @@
   align-items: center;
   font-weight: 600;
   color: #2c3e50;
-  min-width: 200px; /* Espacio mínimo para el nombre */
+  min-width: 200px; 
 }
 
 .escudo-img {
@@ -316,7 +316,7 @@
   font-size: 1rem;
 }
 
-/* Inputs de edición */
+
 .input-corto {
   width: 55px;
   text-align: center;
@@ -332,7 +332,7 @@
   box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
 }
 
-/* Estado de clasificación (Colores laterales) */
+
 .ascenso-directo {
   background: linear-gradient(90deg, rgba(46, 204, 113, 0.1) 0%, transparent 100%);
   border-left: 5px solid #2ecc71;
@@ -348,7 +348,7 @@
   border-left: 5px solid #e74c3c;
 }
 
-/* Badges de Forma */
+
 .forma-container {
   display: flex;
   gap: 4px;
@@ -380,11 +380,11 @@
   background-color: #95a5a6;
 }
 
-/* --- RESPONSIVE --- */
+
 @media (max-width: 768px) {
   .container {
     padding: 10px;
-    /* CORRECCIÓN IMPORTANTE: Aumentamos margen en móvil para que el menú no tape la tabla */
+    
     margin-top: 130px;
     width: 100%;
   }
@@ -400,19 +400,19 @@
     font-size: 1.8rem;
   }
 
-  /* Tabla Responsive con Scroll */
+  
   .table-responsive {
     display: block;
     width: 100%;
-    overflow-x: auto; /* Permite deslizar */
+    overflow-x: auto; 
     -webkit-overflow-scrolling: touch;
   }
 
-  /* Texto un poco más pequeño en móvil */
+  
   .table td,
   .table th {
     font-size: 0.85rem;
-    padding: 10px 5px; /* Menos padding horizontal */
+    padding: 10px 5px; 
   }
 
   .escudo-img {

@@ -1,7 +1,7 @@
-/* Sección general */
+
 .seccion-jugadoras {
   padding: 60px 20px;
-  margin-top: 80px; /* Evitar que el navbar tape el contenido */
+  margin-top: 80px; 
 }
 
 .seccion-jugadoras h2 {
@@ -13,22 +13,22 @@
   letter-spacing: 2px;
 }
 
-/* --- REJILLA INTELIGENTE (GRID) --- */
+
 .grid-jugadoras {
   display: grid;
-  /* Crea columnas automáticamente. Mínimo 280px de ancho cada una. */
+  
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 
-  /* Espacio entre tarjetas */
+  
   gap: 30px;
 
-  /* Centrado y ancho máximo */
+  
   max-width: 1200px;
   margin: 0 auto;
 }
 @media (max-width: 768px) {
   .seccion-jugadoras {
-    margin-top: 100px; /* Reducimos el espacio con el menú */
+    margin-top: 100px; 
     padding: 20px 10px;
   }
 
@@ -38,7 +38,7 @@
   }
 
   .grid-jugadoras {
-    /* En móvil, una columna o dos pequeñas */
+    
     grid-template-columns: 1fr;
     gap: 20px;
     width: 95%;

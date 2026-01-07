@@ -15,10 +15,10 @@ export interface ProductoCarrito {
 export class CartService {
   private carrito: ProductoCarrito[] = [];
   private _carritoSubject = new BehaviorSubject<ProductoCarrito[]>([]);
-  carrito$ = this._carritoSubject.asObservable(); // Para suscribirse a cambios
+  carrito$ = this._carritoSubject.asObservable();
 
   constructor() {
-    // Cargar del storage al iniciar
+
     const saved = localStorage.getItem('carrito');
     if (saved) {
       this.carrito = JSON.parse(saved);

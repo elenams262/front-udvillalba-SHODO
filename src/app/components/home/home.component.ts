@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-// 1. Importamos el componente de la ficha y la interfaz Player
+
 import { PlayerCardComponent, Player } from '../player-card/player-card.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  // 2. AÑADIMOS EL COMPONENTE HIJO AQUÍ EN LOS IMPORTS
+
   imports: [CommonModule, PlayerCardComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
-  // 3. Definimos los datos de las jugadoras (Estos datos se pasan al HTML)
+
   jugadoras: Player[] = [
     {
       name: 'Carla Mora',
@@ -23,11 +23,11 @@ export class HomeComponent {
       video: 'video-portera.mp4',
     },
     {
-      name: 'Ana García', // Cambia esto por los nombres reales
+      name: 'Ana García',
       position: 'Delantera',
       number: 9,
-      image: 'jugadora1.png', // Nombre del archivo en la carpeta uploads
-      video: 'video-jugadora1.mp4', // Nombre del archivo en la carpeta uploads
+      image: 'jugadora1.png',
+      video: 'video-jugadora1.mp4',
     },
     {
       name: 'Laura Ruiz',
@@ -83,7 +83,7 @@ export class HomeComponent {
   constructor(private router: Router) {}
 
   logout() {
-    localStorage.removeItem('token'); // Borramos la llave
-    this.router.navigate(['/login']); // Lo mandamos fuera
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
 }

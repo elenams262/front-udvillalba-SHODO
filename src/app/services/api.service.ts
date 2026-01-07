@@ -12,7 +12,7 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  // Método auxiliar para obtener el token guardado
+
   private getHeaders() {
     const token = localStorage.getItem('token');
     return {
@@ -22,7 +22,7 @@ export class ApiService {
     };
   }
 
-  // --- AUTENTICACIÓN ---
+
   registro(usuario: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/auth/register`, usuario);
   }
@@ -35,7 +35,7 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/users/profile`, this.getHeaders());
   }
 
-  // --- CLASIFICACIÓN ---
+
   getClasificacion(): Observable<any> {
     return this.http.get(`${this.apiUrl}/clasificacion`);
   }
@@ -52,7 +52,7 @@ export class ApiService {
     return this.http.delete(`${this.apiUrl}/clasificacion/${id}`, this.getHeaders());
   }
 
-  // --- PARTIDOS (JORNADA) ---
+
 
   getProximoPartido(): Observable<any> {
     return this.http.get(`${this.apiUrl}/jornada`);
@@ -62,7 +62,7 @@ export class ApiService {
     return this.http.get<any[]>(`${this.apiUrl}/jornada/all`);
   }
 
-  // ✅ ESTAS SON LAS QUE FALTABAN:
+
   crearPartido(partido: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/jornada`, partido, this.getHeaders());
   }
@@ -70,24 +70,24 @@ export class ApiService {
   actualizarPartido(id: string, partido: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/jornada/${id}`, partido, this.getHeaders());
   }
-  // ... (después de actualizarPartido)
+
 
   eliminarPartido(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/jornada/${id}`, this.getHeaders());
   }
 
-  // --- TIENDA ---
+
   getProductos(): Observable<any> {
     return this.http.get(`${this.apiUrl}/productos`);
   }
 
-  // --- SUBIDA DE IMÁGENES ---
+
   subirImagen(archivo: File): Observable<any> {
     const formData = new FormData();
-    formData.append('imagen', archivo); // 'imagen' es el nombre del campo que espera el backend (comúnmente)
+    formData.append('imagen', archivo);
     return this.http.post(`${this.apiUrl}/upload`, formData, this.getHeaders());
   }
-  // En api.service.ts
+
 
   getInviteCodes(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/auth/invite-codes`, this.getHeaders());

@@ -14,13 +14,12 @@ h2 {
   text-align: center;
   margin-bottom: 2rem;
   color: #2c3e50;
-  /* El estilo global h2 pondrá esto blanco si no lo sobrescribimos.
-     Como fondo container es blanco, pondremos color oscuro. */
+  
   color: #2c3e50;
   text-shadow: none;
 }
 
-/* Empty State */
+
 .empty-cart {
   text-align: center;
   padding: 3rem;
@@ -44,13 +43,13 @@ h2 {
   font-size: 1rem;
 }
 
-/* Layout Content */
+
 .cart-content {
   display: flex;
   gap: 2rem;
 }
 
-/* Items List */
+
 .cart-items {
   flex: 2;
   display: flex;
@@ -110,7 +109,7 @@ h2 {
   color: #c0392b;
 }
 
-/* Summary Box */
+
 .cart-summary {
   flex: 1;
   background: #f8f9fa;
@@ -172,7 +171,7 @@ h2 {
   background-color: #c0392b;
   color: white;
 }
-/* --- RESPONSIVE CARRITO --- */
+
 @media (max-width: 768px) {
   .carrito-container {
     margin-top: 150px;
@@ -180,7 +179,7 @@ h2 {
     width: 90%;
   }
 
-  /* Los productos en columna en vez de fila */
+  
   .cart-item {
     flex-direction: column;
     align-items: center;
@@ -194,12 +193,12 @@ h2 {
   }
 
   .btn-remove {
-    align-self: flex-end; /* Botón de borrar a la derecha */
+    align-self: flex-end; 
     margin-top: -20px;
   }
 
   .cart-content {
-    flex-direction: column; /* Resumen debajo de los productos */
+    flex-direction: column; 
   }
 
   .cart-summary {

@@ -1,7 +1,7 @@
 .menu-container {
   max-width: 1200px;
   margin: 0 auto;
-  margin-top: 100px; /* Evitar que el navbar tape el contenido */
+  margin-top: 100px; 
   padding: 2rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -34,11 +34,11 @@
 .menu-table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 800px; /* Para asegurar que no se rompa en móviles muy pequeños */
+  min-width: 800px; 
 }
 
 .menu-table thead th {
-  background-color: #27ae60; /* Verde saludable */
+  background-color: #27ae60; 
   color: white;
   padding: 1.5rem;
   text-align: left;
@@ -85,7 +85,7 @@
   width: 120px;
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
   .menu-container {
     padding: 1rem;

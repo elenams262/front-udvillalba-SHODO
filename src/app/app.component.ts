@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   constructor(private api: ApiService, private router: Router) {}
 
   ngOnInit() {
-    // Escuchar cambios de ruta para el modo auth (clase en el body)
+
     this.router.events
       .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
         }
       });
 
-    // Cargar datos del próximo partido
+
     this.api.getProximoPartido().subscribe({
       next: (data: any) => {
         this.partido = data;
@@ -43,9 +43,9 @@ export class AppComponent implements OnInit {
     });
   }
 
-  // --- FUNCIONES DE AUTENTICACIÓN ---
+
   esAdmin(): boolean {
-    // Buscamos 'rol' (del login) o 'role' (por si acaso)
+
     const role = localStorage.getItem('rol') || localStorage.getItem('role');
     return role === 'admin';
   }
@@ -60,7 +60,7 @@ export class AppComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  // --- FUNCIONES DEL MENÚ ---
+
   toggleMenu() {
     this.menuVisible = !this.menuVisible;
   }
