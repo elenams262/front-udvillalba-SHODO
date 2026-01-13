@@ -12,7 +12,6 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-
   private getHeaders() {
     const token = localStorage.getItem('token');
     return {
@@ -21,7 +20,6 @@ export class ApiService {
       }),
     };
   }
-
 
   registro(usuario: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/auth/register`, usuario);
@@ -34,7 +32,6 @@ export class ApiService {
   getPerfil(): Observable<any> {
     return this.http.get(`${this.apiUrl}/users/profile`, this.getHeaders());
   }
-
 
   getClasificacion(): Observable<any> {
     return this.http.get(`${this.apiUrl}/clasificacion`);
@@ -52,8 +49,6 @@ export class ApiService {
     return this.http.delete(`${this.apiUrl}/clasificacion/${id}`, this.getHeaders());
   }
 
-
-
   getProximoPartido(): Observable<any> {
     return this.http.get(`${this.apiUrl}/jornada`);
   }
@@ -61,7 +56,6 @@ export class ApiService {
   getAllMatches(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/jornada/all`);
   }
-
 
   crearPartido(partido: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/jornada`, partido, this.getHeaders());
@@ -71,16 +65,13 @@ export class ApiService {
     return this.http.put(`${this.apiUrl}/jornada/${id}`, partido, this.getHeaders());
   }
 
-
   eliminarPartido(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/jornada/${id}`, this.getHeaders());
   }
 
-
   getProductos(): Observable<any> {
     return this.http.get(`${this.apiUrl}/productos`);
   }
-
 
   subirImagen(archivo: File): Observable<any> {
     const formData = new FormData();
@@ -88,12 +79,11 @@ export class ApiService {
     return this.http.post(`${this.apiUrl}/upload`, formData, this.getHeaders());
   }
 
-
   getInviteCodes(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/auth/invite-codes`, this.getHeaders());
   }
 
-  generateCode(): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/auth/invite-code`, {}, this.getHeaders());
+  generateCode(role: string = 'usuario'): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/auth/invite-code`, { role }, this.getHeaders());
   }
 }

@@ -1,7 +1,6 @@
 <div *ngIf="esAdmin()" class="container mt-4">
   <h2 class="mb-4 text-center">Panel de Administración</h2>
 
-  
   <ul class="nav nav-pills mb-4 justify-content-center">
     <li class="nav-item">
       <a
@@ -32,17 +31,23 @@
     </li>
   </ul>
 
-  
   <div *ngIf="seccionActiva === 'invitaciones'">
     <h3>Códigos de Registro</h3>
-    <button class="btn btn-success mb-3" (click)="generarNuevoCodigo()">➕ Generar Código</button>
+    <div class="d-flex align-items-center mb-3">
+      <select class="form-select w-auto me-2" [(ngModel)]="nuevoRol">
+        <option value="usuario">Usuario</option>
+        <option value="admin">Admin</option>
+      </select>
+      <button class="btn btn-success" (click)="generarNuevoCodigo()">➕ Generar Código</button>
+    </div>
     <ul class="list-group">
       <li
         *ngFor="let c of codigos"
         class="list-group-item d-flex justify-content-between align-items-center"
       >
         <span
-          ><strong>{{ c.code }}</strong></span
+          ><strong>{{ c.code }}</strong>
+          <small class="text-muted">({{ c.role || 'usuario' }})</small></span
         >
         <span
           [class.text-danger]="c.used"
@@ -55,14 +60,12 @@
     </ul>
   </div>
 
-  
   <div *ngIf="seccionActiva === 'partidos'">
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h3>Lista de Partidos</h3>
       <button class="btn btn-primary" (click)="nuevoPartido()">➕ Nuevo Partido</button>
     </div>
 
-    
     <div class="table-responsive" *ngIf="!partidoEditando">
       <table class="table table-striped table-hover">
         <thead class="table-dark">
@@ -92,7 +95,6 @@
       </table>
     </div>
 
-    
     <div *ngIf="partidoEditando" class="card p-4 bg-light">
       <h4>{{ partidoEditando._id ? 'Editar Partido' : 'Nuevo Partido' }}</h4>
       <form (ngSubmit)="guardarPartido()">
@@ -201,11 +203,10 @@
     </div>
   </div>
 
-  
   <div *ngIf="seccionActiva === 'clasificacion'">
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h3>Tabla de Clasificación</h3>
-      
+
       <button class="btn btn-primary" (click)="guardarTodosLosEquipos()">💾 Guardar Cambios</button>
     </div>
 
@@ -293,11 +294,9 @@
 
     <button class="btn btn-secondary mt-3" (click)="nuevoEquipo()">➕ Añadir Fila de Equipo</button>
 
-    
     <div *ngIf="equipoEditando" class="card p-3 mt-3 bg-light">
       <h5>Nuevo Equipo</h5>
       <form (ngSubmit)="guardarEquipo()">
-        
         <div class="row align-items-center">
           <div class="col-md-3">
             <input

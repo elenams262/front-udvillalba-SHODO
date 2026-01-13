@@ -14,7 +14,7 @@ export class AdminComponent implements OnInit {
   codigos: any[] = [];
   partidos: any[] = [];
   equipos: any[] = [];
-
+  nuevoRol: string = 'usuario';
 
   seccionActiva: 'invitaciones' | 'partidos' | 'clasificacion' = 'invitaciones';
   partidoEditando: any = null;
@@ -34,7 +34,6 @@ export class AdminComponent implements OnInit {
     return localStorage.getItem('rol') === 'admin';
   }
 
-
   cargarCodigos() {
     this.apiService.getInviteCodes().subscribe({
       next: (data: any) => (this.codigos = data),
@@ -43,12 +42,11 @@ export class AdminComponent implements OnInit {
   }
 
   generarNuevoCodigo() {
-    this.apiService.generateCode().subscribe({
+    this.apiService.generateCode(this.nuevoRol).subscribe({
       next: (nuevo: any) => this.codigos.unshift(nuevo),
       error: (err: any) => alert('Error al generar código: ' + err.message),
     });
   }
-
 
   cargarPartidos() {
     this.apiService.getAllMatches().subscribe({
@@ -74,13 +72,11 @@ export class AdminComponent implements OnInit {
   }
 
   editarPartido(partido: any) {
-
     this.partidoEditando = { ...partido };
   }
 
   guardarPartido() {
     if (this.partidoEditando._id) {
-
       this.apiService.actualizarPartido(this.partidoEditando._id, this.partidoEditando).subscribe({
         next: () => {
           this.cargarPartidos();
@@ -89,7 +85,6 @@ export class AdminComponent implements OnInit {
         error: (err) => alert('Error al actualizar partido: ' + err.message),
       });
     } else {
-
       this.apiService.crearPartido(this.partidoEditando).subscribe({
         next: () => {
           this.cargarPartidos();
@@ -108,7 +103,6 @@ export class AdminComponent implements OnInit {
       });
     }
   }
-
 
   cargarEquipos() {
     this.apiService.getClasificacion().subscribe({
@@ -134,23 +128,17 @@ export class AdminComponent implements OnInit {
     this.equipoEditando = { ...equipo };
   }
 
-
   selectedFile: File | null = null;
 
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
   }
 
-
   guardarEquipo() {
     if (!this.equipoEditando._id) {
-
       if (this.selectedFile) {
         this.apiService.subirImagen(this.selectedFile).subscribe({
           next: (response: any) => {
-
-
-
             this.equipoEditando.escudo = this.apiService.URL_IMAGENES + response.filename;
             this.crearEquipoFinal();
           },
@@ -163,7 +151,6 @@ export class AdminComponent implements OnInit {
   }
 
   crearEquipoFinal() {
-
     this.apiService.crearEquipo(this.equipoEditando).subscribe({
       next: () => {
         this.cargarEquipos();
@@ -175,9 +162,7 @@ export class AdminComponent implements OnInit {
   }
 
   guardarTodosLosEquipos() {
-
     const updates = this.equipos.map((equipo) => {
-
       if (equipo._id) {
         return this.apiService.actualizarEquipo(equipo._id, equipo).toPromise();
       }
